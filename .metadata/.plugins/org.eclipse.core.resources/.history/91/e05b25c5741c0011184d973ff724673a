@@ -1,7 +1,0 @@
-package com.rays.service;
-
-import com.rays.common.BaseServiceInt;
-
-public interface UserServiceInt extends BaseServiceInt<UserDTO> {
-
-}
