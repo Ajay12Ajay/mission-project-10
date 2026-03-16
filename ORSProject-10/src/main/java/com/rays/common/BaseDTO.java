@@ -16,7 +16,7 @@ public abstract class BaseDTO implements DropdownList {
 	@GeneratedValue(generator = "pk")
 	@GenericGenerator(name = "pk", strategy = "native")
 	@Column(name = "ID", unique = true, nullable = false)
-	protected long id;
+	protected Long id;
 
 	@Column(name = "CREATED_BY", length = 50)
 	protected String createdBy;
@@ -30,11 +30,11 @@ public abstract class BaseDTO implements DropdownList {
 	@Column(name = "MODIFIED_DATETIME")
 	protected Timestamp modifiedDatetime;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 
-	public void setId(long id) {
+	public void setId(Long id) {
 		this.id = id;
 	}
 

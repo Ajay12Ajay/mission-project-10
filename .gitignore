@@ -1,1 +1,4 @@
-/.metadata/
+.metadata/
+./ORSPROJECT-10-UI/.angular
+./ORSPROJECT-10-UI/.vscode
+./ORSPROJECT-10-UI/node_modules

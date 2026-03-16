@@ -20,6 +20,13 @@ public class BaseServiceImpl<T extends BaseDTO, D extends BaseDAOInt<T>> impleme
 	@Transactional(propagation = Propagation.REQUIRED)
 	public void update(T dto, UserContext userContext) {
 
+		T oldDto = dao.findByPk(dto.getId(), userContext);
+
+		if (oldDto != null) {
+			dto.setCreatedBy(oldDto.getCreatedBy());
+			dto.setCreatedDatetime(oldDto.getCreatedDatetime());
+		}
+
 		dao.update(dto, userContext);
 
 	}
@@ -71,7 +78,7 @@ public class BaseServiceImpl<T extends BaseDTO, D extends BaseDAOInt<T>> impleme
 
 	@Transactional(readOnly = true)
 	public List search(T dto, UserContext userContext) {
-		// TODO Auto-generated method stub
+
 		return dao.search(dto, userContext);
 	}
 

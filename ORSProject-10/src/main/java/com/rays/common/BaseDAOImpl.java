@@ -12,18 +12,14 @@ import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
-public class BaseDAOImpl<T extends BaseDTO> implements BaseDAOInt<T> {
+public abstract class BaseDAOImpl<T extends BaseDTO> implements BaseDAOInt<T> {
 
 	@PersistenceContext
 	protected EntityManager entityManager;
 
-	public Class<T> getDTOClass() {
-		return null;
-	}
+	public abstract Class<T> getDTOClass();
 
-	protected List<Predicate> getWhereClause(T dto, CriteriaBuilder builder, Root<T> qRoot) {
-		return null;
-	}
+	protected abstract List<Predicate> getWhereClause(T dto, CriteriaBuilder builder, Root<T> qRoot);
 
 	protected void populate(T dto, UserContext userContext) {
 

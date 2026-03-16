@@ -13,6 +13,15 @@ public class ORSResponse {
 
 	public boolean success = false;
 
+	public ORSResponse() {
+
+	}
+
+	public ORSResponse(boolean success) {
+
+		this.success = success;
+	}
+
 	public Map<String, Object> getResult() {
 		return result;
 	}

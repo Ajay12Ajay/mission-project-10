@@ -78,4 +78,13 @@ public class UserContext {
 		this.userDTO = userDTO;
 	}
 
+	@Override
+	public String toString() {
+		return "UserContext [userId=" + userId + ", loginId=" + loginId + ", name=" + name + ", roleId=" + roleId
+				+ ", roleName=" + roleName + ", userDTO=" + userDTO + "]";
+	}
+	
+	
+	
+
 }
