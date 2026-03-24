@@ -1,0 +1,118 @@
+
+<style type="text/css">
+.log1 {
+  padding-top: 5%;
+}
+
+.input-group-addon {
+  box-shadow: 9px 8px 7px #001a33;
+}
+
+.grad {
+  background-image: linear-gradient(to bottom right, white, grey);
+  background-repeat: no-repeat;
+  background-size: 100%;
+}
+
+i.css {
+  border: 2px solid #8080803b;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  background-color: #ebebe0;
+}
+
+.p4 {
+  background-image: url('assets/img/bgimg.jpg');
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+  padding-top: 85px;
+  padding-bottom: 85px;
+}
+</style>
+
+<app-navbar></app-navbar>
+
+<body class="p4">
+<div>
+
+  <div class="row log1">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+      <div class="card input-group-addon grad">
+        <div class="card-body">
+
+          <h3 class="text-center text-dark"><b>Login</b></h3>
+
+          <!-- Success Message -->
+          <H4 align="center">
+            <div *ngIf="!form.error && form.message" class="alert alert-success alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ form.message }}
+            </div>
+          </H4>
+
+          <!-- Error Message -->
+          <H4 align="center">
+            <div *ngIf="form.error && form.message" class="alert alert-danger alert-dismissible">
+              <button type="button" class="close" data-dismiss="alert">&times;</button>
+              {{ form.message }}
+            </div>
+          </H4>
+
+          <!-- Login ID -->
+          <span class="pl-sm-5"><b>Login Id</b> <span style="color: red;">*</span></span><br>
+          <div class="col-sm-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-envelope grey-text" style="font-size: 1rem;"></i>
+                </div>
+              </div>
+              <input type="text" class="form-control input-group-addon"
+                name="loginId" [(ngModel)]="form.data.loginId"
+                placeholder="Enter Login ID">
+            </div>
+          </div>
+          <font color="red" class="pl-sm-5">{{ form.inputerror.loginId }}</font><br>
+
+          <!-- Password -->
+          <span class="pl-sm-5"><b>Password</b> <span style="color: red;">*</span></span><br>
+          <div class="col-sm-12">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <i class="fa fa-lock grey-text" style="font-size: 1rem;"></i>
+                </div>
+              </div>
+              <input type="password" class="form-control input-group-addon"
+                name="password" [(ngModel)]="form.data.password"
+                placeholder="Enter Password">
+            </div>
+          </div>
+          <font color="red" class="pl-sm-5">{{ form.inputerror.password }}</font><br><br>
+
+          <!-- Buttons -->
+          <div class="text-center">
+            <button class="btn btn-success" style="font-size: 17px;" (click)="signIn()">Sign In</button>
+            &nbsp;
+            <button class="btn btn-primary" style="font-size: 17px;" (click)="signUp()">Sign Up</button>
+          </div>
+
+          <!-- Forgot Password -->
+          <div class="text-center">
+            <a [routerLink]="['/forgotpassword']" style="color: black; font-size: 15px;">
+              <b><u>Forget my password?</u></b>
+            </a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4"></div>
+  </div>
+
+</div>
+</body>
+
+<app-footer></app-footer>

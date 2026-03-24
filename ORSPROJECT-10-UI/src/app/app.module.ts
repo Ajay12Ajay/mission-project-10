@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RoleComponent } from './role/role.component';
@@ -21,6 +21,28 @@ import { AuthServiceService } from './auth-service.service';
 import { HttpServiceService } from './http-service.service';
 import { EndpointServiceService } from './endpoint-service.service';
 import { ServiceLocatorService } from './service-locator.service';
+import { UserListComponent } from './user/user-list.component';
+import { RoleListComponent } from './role/role-list.component';
+import { CollegeListComponent } from './college/college-list.component';
+import { CourseListComponent } from './course/course-list.component';
+import { FacultyListComponent } from './faculty/faculty-list.component';
+import { MarksheetListComponent } from './marksheet/marksheet-list.component';
+import { StudentListComponent } from './student/student-list.component';
+import { SubjectListComponent } from './subject/subject-list.component';
+import { TimetableListComponent } from './timetable/timetable-list.component';
+import { LoginComponent } from './login/login.component';
+import { SignupComponent } from './login/signup.component';
+import { ForgotpasswordComponent } from './login/forgotpassword.component';
+import { TranslateLoader, TranslateModule } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { ChangepasswordComponent } from './user/changepassword.component';
+import { MyprofileComponent } from './user/myprofile.component';
+
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http, './assets/i18n/', '.json');
+}
+
 
 @NgModule({
   declarations: [
@@ -36,19 +58,44 @@ import { ServiceLocatorService } from './service-locator.service';
     FacultyComponent,
     NavbarComponent,
     DashboardComponent,
-    FooterComponent
+    FooterComponent,
+    UserListComponent,
+    RoleListComponent,
+    CollegeListComponent,
+    CourseListComponent,
+    FacultyListComponent,
+    MarksheetListComponent,
+    StudentListComponent,
+    SubjectListComponent,
+    TimetableListComponent,
+    LoginComponent,
+    SignupComponent,
+    ForgotpasswordComponent,
+    ChangepasswordComponent,
+    MyprofileComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [
     AuthServiceService,
     HttpServiceService,
     EndpointServiceService,
-    ServiceLocatorService
+    ServiceLocatorService,
+    {
+      provide: HTTP_INTERCEPTORS, useClass: AuthServiceService, multi: true
+    }
+
   ],
   bootstrap: [AppComponent]
 })

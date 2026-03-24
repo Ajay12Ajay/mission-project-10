@@ -1,0 +1,166 @@
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="container-fluid pb-5">
+
+    <div align="center">
+      <h1 class="text-dark font-weight-bold pt-3"><u>User List</u></h1>
+    </div>
+
+    <!-- Success Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 alert alert-success alert-dismissible"
+           style="background-color: #80ff80"
+           *ngIf="!form.error && form.message">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><font color="#008000">{{ form.message }}</font></h4>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <!-- Error Message -->
+    <div class="row">
+      <div class="col-md-4"></div>
+      <div class="col-md-4 alert alert-danger alert-dismissible"
+           *ngIf="form.error && form.message">
+        <button type="button" class="close" data-dismiss="alert">&times;</button>
+        <h4><font color="red">{{ form.message }}</font></h4>
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+
+    <div *ngIf="form.list.length > 0">
+
+      <!-- Search Row -->
+      <div class="row mb-3">
+        <div class="col-sm-2"></div>
+
+        <div class="col-sm-2">
+          <input type="text" name="firstName" [(ngModel)]="form.searchParams.firstName"
+                 placeholder="Enter First Name" class="form-control">
+        </div>
+        &emsp;
+        <div class="col-sm-2">
+          <input type="text" name="loginId" [(ngModel)]="form.searchParams.loginId"
+                 placeholder="Enter Email ID" class="form-control">
+        </div>
+        &emsp;
+        <div class="col-sm-3">
+          <select name="roleId" [(ngModel)]="form.searchParams.roleId" class="form-control">
+            <option value="undefined">------------Select------------</option>
+            <option *ngFor="let obj of form.preload.roleList" [value]="obj.key">{{obj.value}}</option>
+          </select>
+        </div>
+
+        <div class="col-sm-2">
+          <input type="button" class="btn btn-primary btn-md" style="font-size: 15px"
+                 value="Search" (click)="search()">&emsp;
+          <input type="button" class="btn btn-dark btn-md" style="font-size: 15px"
+                 value="Reset" (click)="reset()">
+        </div>
+        <div class="col-sm-1"></div>
+      </div>
+
+      
+
+      <!-- Table -->
+      <div style="margin-bottom: 20px;" class="table-responsive">
+        <table class="table table-bordered table-dark table-hover">
+          <thead>
+            <tr style="background-color: #8C8C8C;">
+              <th width="5%">
+                <input type="checkbox"  [(ngModel)]="isMasterSel"
+                       (change)="checkUncheckAll($event)" class="text"> Select All
+              </th>
+              <th width="5%" class="text-center">S.No</th>
+              <th width="12%" class="text-center">First Name</th>
+              <th width="12%" class="text-center">Last Name</th>
+              <th width="18%" class="text-center">Login Id</th>
+              <th width="10%" class="text-center">Date of Birth</th>
+              <th width="8%" class="text-center">Gender</th>
+              <th width="8%" class="text-center">Role</th>
+              <th width="10%" class="text-center">Mobile</th>
+              <th width="7%" class="text-center">Status</th>
+              <th width="5%" class="text-center">Edit</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr align="center" *ngFor="let m of form.list; let i = index">
+              <td align="center">
+                <input type="checkbox" #checkboxes (change)="checklistUpdate()"
+                       [id]="m.id" [value]="isMasterSel">
+              </td>
+              <td class="text-center">{{(form.pageNo * 5) + i + 1}}</td>
+              <td class="text-center">{{m.firstName}}</td>
+              <td class="text-center">{{m.lastName}}</td>
+              <td class="text-center">{{m.loginId}}</td>
+              <td class="text-center">{{m.dob | date : 'dd-MM-yyyy'}}</td>
+              <td class="text-center">{{m.gender}}</td>
+              <td class="text-center">{{m.roleName}}</td>
+              <td class="text-center">{{m.phone}}</td>
+              <td class="text-center">{{m.status}}</td>
+              <td class="text-center">
+                <a (click)="forward('/user/' + m.id)" style="cursor: pointer;">Edit</a>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination & Action Buttons -->
+      <table width="100%">
+        <tr>
+          <td>
+            <input type="button" name="operation" class="btn btn-warning btn-md"
+                   style="font-size: 17px" value="Previous"
+                   (click)="previous()" [disabled]="form.pageNo == 0">
+          </td>
+          <td class="text-center">
+            <input type="button" name="operation" class="btn btn-primary btn-md"
+                   style="font-size: 17px" value="New"
+                   (click)="forward('/user')">
+          </td>
+          <td class="text-center">
+            <input type="button" name="operation" class="btn btn-danger btn-md"
+                   style="font-size: 17px" value="Delete"
+                   (click)="deleteMany()">
+          </td>
+          <td align="right">
+            <input type="button" name="operation" class="btn btn-warning btn-md"
+                   style="font-size: 17px" value="Next"
+                   (click)="next()" [disabled]="form.nextListSize == 0">
+          </td>
+        </tr>
+      </table>
+
+    </div>
+
+    <!-- Empty List State -->
+    <div *ngIf="form.list.length == 0">
+      <div align="center">
+        <h1 style="font-size: 40px; color: #162390;">User List</h1>
+      </div>
+      <br>
+
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4 alert alert-danger alert-dismissible"
+             *ngIf="form.error && form.message">
+          <button type="button" class="close" data-dismiss="alert">&times;</button>
+          <h4><font color="red">{{ form.message }}</font></h4>
+        </div>
+        <div class="col-md-4"></div>
+      </div>
+
+      <br>
+      <div style="padding-left: 48%;">
+        <input type="button" name="operation" class="btn btn-primary btn-md"
+               style="font-size: 17px" value="Back" (click)="reset()">
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>
