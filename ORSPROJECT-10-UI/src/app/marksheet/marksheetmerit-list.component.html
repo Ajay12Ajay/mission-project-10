@@ -1,0 +1,95 @@
+<style>
+   .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 150px;
+    padding-bottom: 300px;
+  }
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="container-fluid pb-5">
+
+    <!-- Title -->
+    <div class="text-center mb-3">
+      <h2 class="text-dark font-weight-bold">
+        <u>Marksheet Merit List</u>
+      </h2>
+    </div>
+
+    <!-- Messages -->
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+
+        <div *ngIf="form.error"
+             class="alert alert-danger text-center">
+          {{form.message}}
+        </div>
+
+        <div *ngIf="!form.error && form.message"
+             class="alert alert-success text-center">
+          {{form.message}}
+        </div>
+
+      </div>
+    </div>
+
+    <!-- Print Button -->
+    <div class="text-right mb-3">
+      <a href="http://localhost:8080/Jasper/report"
+         class="btn btn-primary btn-lg"
+         target="_blank">
+        <i class="fa fa-print mr-1"></i> Print
+      </a>
+    </div>
+
+    <!-- Table -->
+    <div class="table-responsive">
+      <table class="table table-bordered table-hover table-dark text-center">
+
+        <thead style="background-color: #8C8C8C;">
+          <tr>
+            <th>S.No</th>
+            <th>Roll No</th>
+            <th>Name</th>
+            <th>Physics</th>
+            <th>Chemistry</th>
+            <th>Maths</th>
+            <th>Total</th>
+            <th>Percentage (%)</th>
+          </tr>
+        </thead>
+
+        <tbody style="background-color: white; color: black;">
+          <tr *ngFor="let m of form.list; let i = index">
+
+            <td>{{ (form.pageNo * 5) + i + 1 }}</td>
+            <td>{{ m.rollNo }}</td>
+            <td>{{ m.name }}</td>
+
+            <td>{{ m.physics }}</td>
+            <td>{{ m.chemistry }}</td>
+            <td>{{ m.maths }}</td>
+
+            <td class="font-weight-bold">
+              {{ m.physics + m.maths + m.chemistry }}
+            </td>
+
+            <td class="font-weight-bold">
+              {{ ((m.physics+m.maths+m.chemistry)*100)/300 | number:'2.0-2' }}%
+            </td>
+
+          </tr>
+        </tbody>
+
+      </table>
+    </div>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

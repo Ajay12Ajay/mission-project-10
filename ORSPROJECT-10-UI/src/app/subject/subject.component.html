@@ -1,56 +1,120 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+</style>
+
 <app-navbar></app-navbar>
 
-<div align="center">
-    <h1 *ngIf="!form.data.id" align="center" style="margin-bottom: 5px; color: navy">Add Subject</h1>
-    <h1 *ngIf="form.data.id>0" align="center" style="margin-bottom: 5px; color: navy">Update Subject</h1>
+<div class="hm">
 
-    <div style="height: 20px; margin-bottom: 10px; text-align: center;">
-        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{ form.message }}</h3>
-        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">{{ form.message }}</h3>
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Subject
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Subject
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Subject Name -->
+          <span><b>Subject Name</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-book-open"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+                   name="name"
+                   [(ngModel)]="form.data.name"
+                   placeholder="Enter Subject Name">
+          </div>
+          <small class="text-danger">{{ form.inputerror.name }}</small>
+
+          <!-- Course -->
+          <span class="mt-2 d-block"><b>Course</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-graduation-cap"></i>
+              </div>
+            </div>
+            <select class="form-control"
+                    name="courseId"
+                    [(ngModel)]="form.data.courseId">
+              <option value="undefined">------------Select------------</option>
+              <option *ngFor="let obj of form.preload.courseList" [value]="obj.key">
+                {{ obj.value }}
+              </option>
+            </select>
+          </div>
+          <small class="text-danger">{{ form.inputerror.courseId }}</small>
+
+          <!-- Description -->
+          <span class="mt-2 d-block"><b>Description</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-align-left"></i>
+              </div>
+            </div>
+            <textarea class="form-control"
+                      name="description"
+                      [(ngModel)]="form.data.description"
+                      rows="3"
+                      placeholder="Enter short description"></textarea>
+          </div>
+          <small class="text-danger">{{ form.inputerror.description }}</small>
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+
+            <button class="btn btn-success btn-md"
+                    (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning btn-md"
+                    (click)="forward('subjectlist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <table>
-        <tr>
-            <th align="left">Name<span style="color: red">*</span></th>
-            <td align="center"><input type="text" name="name" [(ngModel)]="form.data.name" placeholder="Enter Course Name"></td>
-            <td style="position: fixed; color: red;">{{form.inputerror.name}}</td>
-        </tr>
+    <div class="col-md-4"></div>
+  </div>
 
-        <tr>
-            <th align="left">Course<span style="color: red">*</span></th>
-            <td>
-                <select name="courseId" [(ngModel)]="form.data.courseId" style="width: 170px;">
-                    <option value="undefined">------------Select------------</option>
-                    <option *ngFor="let obj of form.preload.courseList" [value]="obj.key">{{obj.value}}</option>
-                </select>
-            </td>
-            <td style="position: fixed; color: red;">{{form.inputerror.courseId}}</td>
-        </tr>
-
-        <tr>
-            <th align="left">Description<span style="color: red">*</span></th>
-            <td align="center">
-                <textarea 
-                    style="width: 165px; resize: none;" 
-                    name="description" 
-                    [(ngModel)]="form.data.description"
-                    rows="3" 
-                    placeholder="Enter Short description">
-                </textarea>
-            </td>
-            <td style="position: fixed; color: red;">{{form.inputerror.description}}</td>
-        </tr>
-
-        <tr></tr>
-
-        <tr>
-            <th></th>
-            <td align="left" colspan="2">
-                <button (click)="submit()">save</button> &nbsp;
-                <button (click)="forward('subjectlist')">list</button>
-            </td>
-        </tr>
-    </table>
 </div>
 
 <app-footer></app-footer>

@@ -24,6 +24,8 @@ import { SignupComponent } from './login/signup.component';
 import { ForgotpasswordComponent } from './login/forgotpassword.component';
 import { MyprofileComponent } from './user/myprofile.component';
 import { ChangepasswordComponent } from './user/changepassword.component';
+import { MarksheetmeritListComponent } from './marksheet/marksheetmerit-list.component';
+import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
 
 const routes: Routes = [
 
@@ -167,10 +169,15 @@ const routes: Routes = [
   {
     path: 'changepassword',
     component: ChangepasswordComponent
+  },
+  {
+    path: 'getmarksheet',
+    component: GetmarksheetComponent
+  },
+  {
+    path: 'marksheetmerit-list',
+    component: MarksheetmeritListComponent
   }
-
-
-
 
 ];
 

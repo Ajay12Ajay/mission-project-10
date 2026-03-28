@@ -1,5 +1,5 @@
 
-<style type="text/css">
+<style >
 i.css {
   border: 2px solid #8080803b;
   padding-left: 10px;
@@ -11,19 +11,30 @@ i.css {
   box-shadow: 9px 8px 7px #001a33;
 }
 
+ .img {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+
+
 .hm {
-  background-image: url('assets/img/user1.jpg');
+  background-image: url('assets/img/welcome.png');
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-size: cover;
   padding-top: 75px;
+  padding-bottom: 50px;
 }
+
 </style>
 
 <app-navbar></app-navbar>
 
-<body class="hm">
-<div>
+
+<div class="hm">
 
   <div class="row pt-3">
     <div class="col-md-4 mb-4"></div>
@@ -56,6 +67,39 @@ i.css {
           </H4>
 
           <div class="md-form">
+
+            
+              <div align="center">
+                <tr>
+                  <th></th>
+                  <td *ngIf="form.data.imageId > 0 && form.data.id > 0"><img
+                      src="http://localhost:8080/User/profilePic/{{form.data.id}}" alt="profile" class="img"
+                      align="center"></td>
+                </tr>
+                <tr *ngIf="form.data.id > 0 && form.data.imageId == null">
+                  <th></th>
+                  <td>
+                    <img
+                      src="https://i.pinimg.com/736x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg"
+                      class="img">
+                  </td>
+                </tr>
+                </div>
+
+                <span class="pl-sm-5"><b>Upload Image</b></span><br>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text"><i class="fa fa-image grey-text" style="font-size: 1rem;"></i></div>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="imageId" (change)="onFileSelect($event)"
+                        accept="image/*">
+                      <label class="custom-file-label">add image</label>
+                    </div>
+                  </div>
+                </div>
+                <br>
 
             <!-- First Name -->
             <span class="pl-sm-5"><b>{{ 'UserForm.FirstName' | translate }}</b> <span style="color: red;">*</span></span><br>
@@ -181,7 +225,7 @@ i.css {
             <div class="col-sm-12">
               <div class="input-group">
                 <div class="input-group-prepend">
-                  <div class="input-group-text"><i class="fa fa-phone-alt grey-text" style="font-size: 1rem;"></i></div>
+                  <div class="input-group-text"><i class="fa fa-phone-square grey-text" style="font-size: 1rem;"></i></div>
                 </div>
                 <input type="text" class="form-control" name="alternateMobile"
                   [(ngModel)]="form.data.alternateMobile" maxlength="10"
@@ -217,6 +261,7 @@ i.css {
               </button>
             </div>
 
+          <div class="md-form">
             <!-- Buttons — Add mode -->
             <div class="text-center" *ngIf="!form.data.id">
               <button class="btn btn-success btn-md" style="font-size: 17px;" (click)="submit()">
@@ -228,6 +273,8 @@ i.css {
               </button>
             </div>
 
+            
+
           </div>
         </div>
       </div>
@@ -236,6 +283,6 @@ i.css {
   </div>
 
 </div>
-</body>
+
 
 <app-footer></app-footer>

@@ -81,7 +81,8 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		if (dto.getUniqueKey() != null && !dto.getUniqueKey().equals("")) {
 
 			T existsDTO = service.findByUniqueKey(dto.getUniqueKey(), dto.getUniqueValue(), userContext);
-
+			
+			// main condition check for already exist record
 			if (existsDTO != null && (dto.getId() == null || !existsDTO.getId().equals(dto.getId()))) {
 				res.addMessage(dto.getLabel() + " already exists");
 				res.setSuccess(false);
@@ -91,7 +92,7 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 
 		Long exId = dto.getId();
 
-	//	System.out.println("User Context:" + userContext);
+		// System.out.println("User Context:" + userContext);
 
 		long id = service.save(dto, userContext);
 
@@ -117,6 +118,7 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		T dto = service.findById(id, userContext);
 
 		if (dto != null) {
+			res.setSuccess(true);
 			res.addData(dto);
 		} else {
 			res.setSuccess(false);
@@ -127,7 +129,8 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 	}
 
 	@PostMapping("deleteMany/{ids}")
-	public ORSResponse deleteMany(@PathVariable String[] ids, @RequestParam("pageNo") String pageNo, @RequestBody F form) {
+	public ORSResponse deleteMany(@PathVariable String[] ids, @RequestParam("pageNo") String pageNo,
+			@RequestBody F form) {
 
 		ORSResponse res = new ORSResponse();
 

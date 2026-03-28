@@ -30,11 +30,7 @@ public class ORSProject10Application {
 						.allowCredentials(true);
 			}
 
-			/*
-			 * @Override public void addInterceptors(InterceptorRegistry registry) {
-			 * registry.addInterceptor(frontCtl).addPathPatterns("/**").excludePathPatterns(
-			 * "/Auth/**"); }
-			 */
+			
 		};
 		return w;
 	}

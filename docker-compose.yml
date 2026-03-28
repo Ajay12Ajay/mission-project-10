@@ -1,0 +1,40 @@
+services:
+
+  mysql:
+    image: mysql:8.0
+    container_name: ors-mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project_10
+      MYSQL_ROOT_HOST: "%"
+      TZ: Asia/Kolkata
+    ports:
+      - "3308:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: ./ORSproject-10
+      dockerfile: dockerfile
+    container_name: ors-backend
+    depends_on:
+      - mysql        
+    ports:
+      - "8080:8080"
+
+
+  frontend:
+    build:
+      context: ./ORSPROJECT-10-UI
+      dockerfile: Dockerfile
+    container_name: ors-frontend
+    restart: always
+    depends_on:
+      - backend      
+    ports:
+      - "4200:80"
+
+volumes:
+  mysql_data:

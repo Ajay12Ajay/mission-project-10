@@ -78,6 +78,7 @@ com\rays\dao\CollegeDAOInt.class
 com\rays\dto\RoleDTO.class
 com\rays\service\CollegeServiceImpl.class
 com\rays\common\BaseDAOInt.class
+com\rays\common\ApplicationExceptionHandlerCtl.class
 com\rays\form\TimeTableForm.class
 com\rays\util\EmailUtility.class
 com\rays\config\WebSecurityConfig.class

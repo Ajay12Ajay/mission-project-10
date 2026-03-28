@@ -2,6 +2,7 @@ H:\mission-project-10\ORSProject-10\src\main\java\com\rays\dao\RoleDAOImpl.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\service\FacultyServiceInt.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\config\JWTUtil.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\service\TimeTableServiceInt.java
+H:\mission-project-10\ORSProject-10\src\main\java\com\rays\common\ApplicationExceptionHandlerCtl.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\dto\SubjectDTO.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\dto\TimeTableDTO.java
 H:\mission-project-10\ORSProject-10\src\main\java\com\rays\common\DropdownList.java
