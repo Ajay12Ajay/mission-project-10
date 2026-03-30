@@ -62,4 +62,10 @@ public class MarksheetDAOImpl extends BaseDAOImpl<MarksheetDTO> implements Marks
 		return whereCondition;
 	}
 
+	@Override
+	public List<MarksheetDTO> getMeritList() {
+		List list = super.marksheetMeritList("from MarksheetDTO order by (physics+chemistry+maths) desc", null);
+		return list;
+	}
+
 }

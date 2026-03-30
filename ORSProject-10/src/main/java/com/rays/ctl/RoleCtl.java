@@ -13,10 +13,22 @@ import com.rays.dto.RoleDTO;
 import com.rays.form.RoleForm;
 import com.rays.service.RoleServiceInt;
 
+/**
+ * REST controller for Role CRUD operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /Role}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "Role")
 public class RoleCtl extends BaseCtl<RoleDTO, RoleForm, RoleServiceInt> {
 
+	/**
+	 * Returns all roles as a dropdown list for form population.
+	 *
+	 * @return {@link ORSResponse} with {@code roleList} containing all available roles
+	 */
 	@GetMapping("preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);

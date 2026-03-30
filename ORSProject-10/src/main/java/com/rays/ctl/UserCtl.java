@@ -26,6 +26,13 @@ import com.rays.service.AttachmentServiceInt;
 import com.rays.service.RoleServiceInt;
 import com.rays.service.UserServiceInt;
 
+/**
+ * REST controller for User CRUD and profile picture operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /User}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "User")
 public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
@@ -36,6 +43,11 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 	@Autowired
 	AttachmentServiceInt attachmentService;
 
+	/**
+	 * Returns all roles as a dropdown list for the User form.
+	 *
+	 * @return {@link ORSResponse} with {@code roleList} containing all available roles
+	 */
 	@GetMapping("preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);
@@ -49,6 +61,15 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 		return res;
 	}
 
+	/**
+	 * Uploads or replaces the profile picture for the given user.
+	 * Saves the file as an {@link AttachmentDTO} and updates the user's {@code imageId} if new.
+	 *
+	 * @param userId the ID of the user whose profile picture is being uploaded
+	 * @param file   the multipart image file to upload
+	 * @param req    the incoming HTTP request
+	 * @return {@link ORSResponse} with {@code success=true} and the saved {@code imageId}
+	 */
 	@PostMapping("/profilePic/{userId}")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
 			HttpServletRequest req) {
@@ -84,6 +105,13 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 		return res;
 	}
 
+	/**
+	 * Streams the profile picture of the given user directly to the HTTP response.
+	 * Writes an error message if no image is found.
+	 *
+	 * @param userId   the ID of the user whose profile picture is to be downloaded
+	 * @param response the HTTP response; content type is set from the stored attachment type
+	 */
 	@GetMapping("/profilePic/{userId}")
 	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
 

@@ -20,17 +20,17 @@ public class MarksheetForm extends BaseForm {
 
 	protected String name = null;
 
-	@NotNull(message = "Physics is required")
+	@NotNull(message = "Physics number is required")
 	@Max(99)
 	@Min(0)
 	protected Integer physics;
 
-	@NotNull(message = "Chemistry is required")
+	@NotNull(message = "Chemistry number is required")
 	@Max(99)
 	@Min(0)
 	protected Integer chemistry;
 
-	@NotNull(message = "Maths is required")
+	@NotNull(message = "Maths number is required")
 	@Max(99)
 	@Min(0)
 	protected Integer maths;

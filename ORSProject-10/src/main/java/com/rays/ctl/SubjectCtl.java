@@ -16,12 +16,26 @@ import com.rays.form.SubjectForm;
 import com.rays.service.CourseServiceInt;
 import com.rays.service.SubjectServiceInt;
 
+/**
+ * REST controller for Subject CRUD operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /Subject}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "Subject")
 public class SubjectCtl extends BaseCtl<SubjectDTO, SubjectForm, SubjectServiceInt> {
+
 	@Autowired
 	private CourseServiceInt courseService;
 
+	/**
+	 * Returns dropdown data required to populate the Subject form.
+	 * Loads all courses.
+	 *
+	 * @return {@link ORSResponse} with {@code courseList} containing all available courses
+	 */
 	@GetMapping("/preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);

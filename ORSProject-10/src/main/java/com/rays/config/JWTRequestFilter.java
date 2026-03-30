@@ -20,6 +20,13 @@ import com.rays.common.UserContextHolder;
 import com.rays.dto.UserDTO;
 import com.rays.service.JWTUserDetailsService;
 
+/**
+ * JWT authentication filter that intercepts every request once per request lifecycle.
+ * Validates the Bearer token, sets Spring Security context, and stores {@link UserContext}
+ * in {@link UserContextHolder}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
 
@@ -29,6 +36,18 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 	@Autowired
 	private JWTUserDetailsService jwtUserDetailsService;
 
+	/**
+	 * Extracts and validates the JWT from the {@code Authorization: Bearer} header.
+	 * On success, sets the authentication in {@link SecurityContextHolder} and stores
+	 * the {@link UserContext} in thread-local storage. On failure, responds with
+	 * {@code 401 UNAUTHORIZED}.
+	 *
+	 * @param request     the incoming HTTP request
+	 * @param response    the outgoing HTTP response
+	 * @param filterChain the filter chain to continue if authentication succeeds
+	 * @throws ServletException if a servlet error occurs
+	 * @throws IOException      if an I/O error occurs while writing the error response
+	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {

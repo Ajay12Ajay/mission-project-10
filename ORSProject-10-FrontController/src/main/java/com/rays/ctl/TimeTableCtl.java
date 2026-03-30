@@ -18,7 +18,7 @@ import com.rays.service.SubjectServiceInt;
 import com.rays.service.TimeTableServiceInt;
 
 @RestController
-@RequestMapping(value = "Timetable")
+@RequestMapping(value = "TimeTable")
 public class TimeTableCtl extends BaseCtl<TimeTableDTO, TimeTableForm, TimeTableServiceInt> {
 
 	@Autowired

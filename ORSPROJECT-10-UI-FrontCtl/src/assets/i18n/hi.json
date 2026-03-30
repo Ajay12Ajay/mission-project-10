@@ -9,7 +9,6 @@
     "FirstName": "पहला नाम",
     "LastName": "अंतिम नाम",
     "LoginId": "लॉगिन आईडी",
-    
     "DateOfBirth": "जन्म तिथि",
     "Gender": "लिंग",
     "Mobile": "मोबाइल",
@@ -49,7 +48,19 @@
         "FacultyList": "फैकल्टी सूची",
         "Logout": "लॉगआउट",
         "Dashboard": "डैशबोर्ड",
-        "Login": "लॉगिन"
+        "Login": "लॉगिन",
+        "user": "उपयोगकर्ता",
+        "role": "भूमिका",
+        "college": "कॉलेज",
+        "student": "छात्र",
+        "marksheet": "मार्कशीट",
+        "course": "कोर्स",
+        "subject": "विषय",
+        "timetable": "टाइमटेबल",
+        "faculty": "फैकल्टी",
+        "signup": "साइन अप",
+        "GetMarksheet": "अंकतालिका प्राप्त करें",
+        "MarksheetMeritList": "अंकतालिका मेरिट सूची"
     },
     "LocaleSelect": {
         "Select": "-------चुनें-------",

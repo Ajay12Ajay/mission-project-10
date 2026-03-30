@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -49,7 +48,7 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 		return res;
 	}
-	
+
 	@PostMapping("/profilePic/{userId}")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
 			HttpServletRequest req) {
@@ -60,7 +59,7 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 		attachmentDto.setUserId(userId);
 
-		UserDTO userDto = service.findById(userId,userContext);
+		UserDTO userDto = service.findById(userId, userContext);
 
 		if (userDto.getImageId() != null && userDto.getImageId() > 0) {
 
@@ -74,7 +73,7 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 			userDto.setImageId(imageId);
 
-			service.update(userDto,userContext);
+			service.update(userDto, userContext);
 		}
 
 		ORSResponse res = new ORSResponse();
@@ -90,12 +89,12 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 		try {
 
-			UserDTO userDto = service.findById(userId,userContext);
+			UserDTO userDto = service.findById(userId, userContext);
 
 			AttachmentDTO attachmentDTO = null;
 
 			if (userDto != null) {
-				attachmentDTO = attachmentService.findById(userDto.getImageId(),userContext);
+				attachmentDTO = attachmentService.findById(userDto.getImageId(), userContext);
 			}
 
 			if (attachmentDTO != null) {

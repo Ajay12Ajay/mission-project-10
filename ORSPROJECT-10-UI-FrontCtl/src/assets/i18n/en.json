@@ -9,7 +9,6 @@
     "FirstName": "First Name",
     "LastName": "Last Name",
     "LoginId": "Login Id",
-    
     "DateOfBirth": "Date of Birth",
     "Gender": "Gender",
     "Mobile": "Mobile",
@@ -49,7 +48,19 @@
         "FacultyList": "Faculty List",
         "Logout": "Logout",
         "Dashboard": "Dashboard",
-        "Login": "Login"
+        "Login": "Login",
+        "user": "User",
+        "role": "Role",
+        "college": "College",
+        "student": "Student",
+        "marksheet": "Marksheet",
+        "course": "Course",
+        "subject": "Subject",
+        "timetable": "Timetable",
+        "faculty": "Faculty",
+        "signup":"SignUp",
+        "GetMarksheet":" Get Marksheet",
+        "MarksheetMeritList":"Marksheet Merit List"
     },
     "LocaleSelect": {
         "Select": "-------Select-------",

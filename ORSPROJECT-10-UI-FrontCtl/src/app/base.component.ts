@@ -54,6 +54,13 @@ export class BaseCtl implements OnInit {
         }
     }
 
+       fileToUpload: any = null;
+
+    onFileSelect(event: any) {
+        this.fileToUpload = event.target.files.item(0);
+        console.log('file', this.fileToUpload);
+    }
+
     preload() {
         var _self = this;
         this.serviceLocator.httpService.get(_self.api.preload, function (res: any) {
@@ -85,7 +92,11 @@ export class BaseCtl implements OnInit {
             _self.form.inputerror = {};
             if (res.success) {
                 _self.form.message = res.result.message;
-                _self.form.data.id = res.result.data;
+
+                 if (res.result.data && res.result.data.id) {
+                _self.form.data.id = res.result.data.id;
+            }
+               
             } else {
                 _self.form.error = true;
                 if (res.result.inputerror) {
@@ -93,6 +104,21 @@ export class BaseCtl implements OnInit {
                 }
                 _self.form.message = res.result.message;
             }
+
+              if (_self.fileToUpload != null) {
+                _self.uploadFile();
+                _self.display();
+            }
+        });
+    }
+
+       uploadFile() {
+        let self = this;
+        const formData = new FormData();
+        formData.append('file', this.fileToUpload);
+        return this.serviceLocator.httpService.post("http://localhost:8080/User/profilePic/" + this.form.data.id, formData, function (res: any) {
+            console.log("imageId = " + res.result.imageId);
+            self.form.data.imageId = res.result.imageId;
         });
     }
 

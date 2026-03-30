@@ -20,6 +20,13 @@ import com.rays.service.CourseServiceInt;
 import com.rays.service.FacultyServiceInt;
 import com.rays.service.SubjectServiceInt;
 
+/**
+ * REST controller for Faculty CRUD operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /Faculty}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "Faculty")
 public class FacultyCtl extends BaseCtl<FacultyDTO, FacultyForm, FacultyServiceInt> {
@@ -33,6 +40,12 @@ public class FacultyCtl extends BaseCtl<FacultyDTO, FacultyForm, FacultyServiceI
 	@Autowired
 	private CollegeServiceInt collegeService;
 
+	/**
+	 * Returns dropdown data required to populate the Faculty form.
+	 * Loads all courses, subjects, and colleges.
+	 *
+	 * @return {@link ORSResponse} with {@code courseList}, {@code subjectList}, and {@code collegeList}
+	 */
 	@GetMapping("/preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);

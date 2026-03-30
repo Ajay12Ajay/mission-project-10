@@ -33,17 +33,13 @@ import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 
 /**
- * Jasper functionality Controller. Performs operation for Print pdf of
- * MarksheetMeriteList
+ * REST controller for generating JasperReports.
+ * Compiles {@code project_10.jrxml}, fills it using the active JDBC connection,
+ * and streams the resulting PDF to the HTTP response.
+ * Mapped to {@code /Jasper}.
  *
- * 
+ * @author Ajay Pratap Kerketta
  */
-/**
- * The Class JasperCtl.
- *
- * @author Ajay
- */
-
 @RestController
 @RequestMapping(value = "Jasper")
 public class JasperCtl extends BaseCtl<MarksheetDTO, MarksheetForm, MarksheetServiceInt> {
@@ -52,13 +48,15 @@ public class JasperCtl extends BaseCtl<MarksheetDTO, MarksheetForm, MarksheetSer
 	protected EntityManager entityManager;
 
 	/**
-	 * Display.
+	 * Generates and streams the Marksheet Merit List as a PDF.
+	 * Compiles the JRXML template, fills it via the Hibernate JDBC connection,
+	 * and writes the PDF bytes directly to the response output stream.
 	 *
-	 * @param request  the request
-	 * @param response the response
-	 * @throws JRException  the JR exception
-	 * @throws SQLException the SQL exception
-	 * @throws IOException  Signals that an I/O exception has occurred.
+	 * @param request  the incoming HTTP request
+	 * @param response the HTTP response; content type is set to {@code application/pdf}
+	 * @throws JRException  if JasperReports compilation or filling fails
+	 * @throws SQLException if a database connection error occurs
+	 * @throws IOException  if writing to the response output stream fails
 	 */
 	@GetMapping(value = "/report", produces = { MediaType.APPLICATION_JSON_VALUE })
 	public void display(HttpServletRequest request, HttpServletResponse response)

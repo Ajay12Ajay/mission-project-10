@@ -22,6 +22,12 @@ import com.rays.form.UserForm;
 import com.rays.form.UserRegistrationForm;
 import com.rays.service.UserServiceInt;
 
+/**
+ * REST controller handling authentication operations: login, sign-up, logout,
+ * and forgot password. All endpoints are publicly accessible under {@code /Auth}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "Auth")
 public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
@@ -29,6 +35,15 @@ public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 	@Autowired
 	private JWTUtil jwtUtil;
 
+	/**
+	 * Authenticates a user and returns a JWT token along with user details.
+	 *
+	 * @param form          the login form containing {@code loginId} and {@code password}
+	 * @param bindingResult validation result for the submitted form
+	 * @return {@link ORSResponse} with {@code success=true} and JWT token on success,
+	 *         or {@code success=false} with an error message on invalid credentials
+	 * @throws Exception if JWT token generation fails
+	 */
 	@PostMapping("login")
 	public ORSResponse login(@RequestBody @Valid LoginForm form, BindingResult bindingResult) throws Exception {
 
@@ -61,6 +76,14 @@ public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 		return res;
 	}
 
+	/**
+	 * Registers a new user with {@code Inactive} status and role ID {@code 2}.
+	 *
+	 * @param form          the registration form with user details
+	 * @param bindingResult validation result for the submitted form
+	 * @return {@link ORSResponse} with {@code success=true} on successful registration,
+	 *         or {@code success=false} if the login ID already exists or validation fails
+	 */
 	@PostMapping("signUp")
 	public ORSResponse signUp(@RequestBody @Valid UserRegistrationForm form, BindingResult bindingResult) {
 
@@ -97,6 +120,13 @@ public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 		return res;
 	}
 
+	/**
+	 * Invalidates the current HTTP session, effectively logging the user out.
+	 *
+	 * @param session the current {@link HttpSession} to invalidate
+	 * @return {@link ORSResponse} with a logout success message
+	 * @throws Exception if session invalidation fails
+	 */
 	@GetMapping("logout")
 	public ORSResponse logout(HttpSession session) throws Exception {
 
@@ -109,6 +139,14 @@ public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 		return res;
 	}
 
+	/**
+	 * Sends the user's password to their registered email if the login ID is found.
+	 *
+	 * @param form          the form containing the {@code loginId} to look up
+	 * @param bindingResult validation result for the submitted form
+	 * @return {@link ORSResponse} with {@code success=true} and a confirmation message,
+	 *         or {@code success=false} if the login ID is not found
+	 */
 	@PostMapping("forgetPassword")
 	public ORSResponse forgetPassword(@RequestBody @Valid ForgetPasswordForm form, BindingResult bindingResult) {
 

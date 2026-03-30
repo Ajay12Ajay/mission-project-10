@@ -17,6 +17,13 @@ import com.rays.service.CourseServiceInt;
 import com.rays.service.SubjectServiceInt;
 import com.rays.service.TimeTableServiceInt;
 
+/**
+ * REST controller for TimeTable CRUD operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /TimeTable}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "TimeTable")
 public class TimeTableCtl extends BaseCtl<TimeTableDTO, TimeTableForm, TimeTableServiceInt> {
@@ -27,6 +34,12 @@ public class TimeTableCtl extends BaseCtl<TimeTableDTO, TimeTableForm, TimeTable
 	@Autowired
 	private SubjectServiceInt subjectService;
 
+	/**
+	 * Returns dropdown data required to populate the TimeTable form.
+	 * Loads all courses and subjects.
+	 *
+	 * @return {@link ORSResponse} with {@code courseList} and {@code subjectList}
+	 */
 	@GetMapping("preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);

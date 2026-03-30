@@ -23,16 +23,45 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.rays.dto.UserDTO;
 
+/**
+ * Abstract base controller providing common CRUD and search operations
+ * for all REST controllers in the application.
+ * <p>
+ * All concrete controllers should extend this class and supply the appropriate
+ * DTO, Form, and Service generic type parameters. This class wires the service
+ * layer automatically and exposes endpoints for save, get, deleteMany, and search.
+ * </p>
+ *
+ * @param <T> the DTO type extending {@link BaseDTO}
+ * @param <F> the Form type extending {@link BaseForm}
+ * @param <S> the Service interface type extending {@link BaseServiceInt}
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServiceInt<T>> {
 
+	/** The service layer instance auto-wired by Spring for handling business logic. */
 	@Autowired
 	protected S service;
 
+	/**
+	 * The number of records per page, injected from application properties ({@code page.size}).
+	 */
 	@Value("${page.size}")
 	private int pageSize = 0;
 
+	/** The current user's context, populated from the HTTP session before each request. */
 	protected UserContext userContext = null;
 
+	/**
+	 * Populates {@link #userContext} from the HTTP session before any request method is invoked.
+	 * <p>
+	 * If no {@code UserContext} is found in the session, a default context is created
+	 * using a hardcoded {@link UserDTO} with login ID {@code ajay@gmail.com}.
+	 * </p>
+	 *
+	 * @param session the current {@link HttpSession} from which the user context is retrieved
+	 */
 	@ModelAttribute
 	public void setUserContext(HttpSession session) {
 		userContext = (UserContext) session.getAttribute("useContext");
@@ -44,6 +73,18 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		}
 	}
 
+	/**
+	 * Validates the binding result from a form submission and returns an {@link ORSResponse}.
+	 * <p>
+	 * If validation errors are present, the response will have {@code success=false}
+	 * and the result map will contain a field-to-message error map under the
+	 * {@code inputerror} key.
+	 * </p>
+	 *
+	 * @param bindingResult the {@link BindingResult} produced by Spring's form validation
+	 * @return an {@link ORSResponse} with {@code success=true} if no errors exist,
+	 *         or {@code success=false} with a map of field errors if validation fails
+	 */
 	public ORSResponse validate(BindingResult bindingResult) {
 
 		ORSResponse res = new ORSResponse(true);
@@ -65,6 +106,19 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		return res;
 	}
 
+	/**
+	 * Saves (adds or updates) a record based on the submitted form data.
+	 * <p>
+	 * Validates the form first. If validation fails, returns the error response immediately.
+	 * Checks for duplicate unique-key values before persisting.
+	 * Returns a success message and the saved DTO on success, or an error message on failure.
+	 * </p>
+	 *
+	 * @param form          the form object containing the data to save; must be valid per Bean Validation
+	 * @param bindingResult the validation result for the submitted form
+	 * @return an {@link ORSResponse} with {@code success=true} and the saved DTO on success,
+	 *         or {@code success=false} with an error/validation message on failure
+	 */
 	@PostMapping(value = "save")
 	public ORSResponse save(@RequestBody @Valid F form, BindingResult bindingResult) {
 
@@ -110,6 +164,13 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		return res;
 	}
 
+	/**
+	 * Retrieves a single record by its primary key ID.
+	 *
+	 * @param id the primary key of the record to fetch
+	 * @return an {@link ORSResponse} with {@code success=true} and the DTO in the data field
+	 *         if found, or {@code success=false} with a "Record Not Found" message if not found
+	 */
 	@GetMapping("get/{id}")
 	public ORSResponse get(@PathVariable long id) {
 
@@ -128,6 +189,20 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 		return res;
 	}
 
+	/**
+	 * Deletes multiple records by their IDs and returns the updated list for the current page.
+	 * <p>
+	 * After deletion, performs a search using the form's DTO and the given page number
+	 * to return the remaining records. Also returns the size of the next page to assist
+	 * with client-side pagination.
+	 * </p>
+	 *
+	 * @param ids    an array of record ID strings extracted from the path variable
+	 * @param pageNo the current page number (as a {@link String}) used to re-fetch the list after deletion
+	 * @param form   the search form whose DTO is used to query remaining records
+	 * @return an {@link ORSResponse} with {@code success=true}, the updated list,
+	 *         and the next page size on success; or {@code success=false} with an error message on failure
+	 */
 	@PostMapping("deleteMany/{ids}")
 	public ORSResponse deleteMany(@PathVariable String[] ids, @RequestParam("pageNo") String pageNo,
 			@RequestBody F form) {
@@ -164,6 +239,19 @@ public class BaseCtl<T extends BaseDTO, F extends BaseForm, S extends BaseServic
 
 	}
 
+	/**
+	 * Searches for records matching the filter criteria in the form, with pagination support.
+	 * <p>
+	 * Accepts both GET and POST HTTP methods. Normalizes negative page numbers to 0.
+	 * Also fetches the next page to help the client determine if more records are available.
+	 * </p>
+	 *
+	 * @param form   the search form whose DTO holds the filter criteria
+	 * @param pageNo the zero-based page number for pagination; negative values are treated as 0
+	 * @return an {@link ORSResponse} with {@code success=true}, the matching list, and the
+	 *         next page size on success; or {@code success=false} with a "Record not found" message
+	 *         if no results are returned
+	 */
 	@RequestMapping(value = "/search/{pageNo}", method = { RequestMethod.GET, RequestMethod.POST })
 	public ORSResponse search(@RequestBody F form, @PathVariable int pageNo) {
 

@@ -17,6 +17,13 @@ import com.rays.form.MarksheetForm;
 import com.rays.service.MarksheetServiceInt;
 import com.rays.service.StudentServiceInt;
 
+/**
+ * REST controller for Marksheet operations.
+ * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
+ * Mapped to {@code /Marksheet}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @RestController
 @RequestMapping(value = "Marksheet")
 public class MarksheetCtl extends BaseCtl<MarksheetDTO, MarksheetForm, MarksheetServiceInt> {
@@ -27,6 +34,12 @@ public class MarksheetCtl extends BaseCtl<MarksheetDTO, MarksheetForm, Marksheet
 	@Autowired
 	private MarksheetServiceInt marksheetService;
 
+	/**
+	 * Returns dropdown data required to populate the Marksheet form.
+	 * Loads all students and existing marksheets.
+	 *
+	 * @return {@link ORSResponse} with {@code studentList} and {@code marksheetList}
+	 */
 	@GetMapping("preload")
 	public ORSResponse preload() {
 		ORSResponse res = new ORSResponse(true);
@@ -40,6 +53,13 @@ public class MarksheetCtl extends BaseCtl<MarksheetDTO, MarksheetForm, Marksheet
 		return res;
 	}
 
+	/**
+	 * Finds a marksheet by its roll number.
+	 *
+	 * @param rollNo the roll number to search for
+	 * @return {@link ORSResponse} with the matching {@link MarksheetDTO} on success,
+	 *         or {@code success=false} with a "Record not found" message if not found
+	 */
 	@GetMapping("rollno/{rollNo}")
 	public ORSResponse rollNo(@PathVariable String rollNo) {
 		ORSResponse res = new ORSResponse(true);
@@ -53,6 +73,11 @@ public class MarksheetCtl extends BaseCtl<MarksheetDTO, MarksheetForm, Marksheet
 		return res;
 	}
 
+	/**
+	 * Returns the top 10 marksheet records ordered by merit (highest marks first).
+	 *
+	 * @return {@link ORSResponse} with {@code list} containing the merit list
+	 */
 	@GetMapping("meritlist")
 	public ORSResponse getMeritList() {
 		//System.out.println("getMeritList run on ctl");

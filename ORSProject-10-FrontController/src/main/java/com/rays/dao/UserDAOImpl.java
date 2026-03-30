@@ -14,16 +14,12 @@ import com.rays.common.BaseDAOImpl;
 import com.rays.common.UserContext;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
-import com.rays.service.AttachmentServiceInt;
 
 @Repository
 public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 
 	@Autowired
 	RoleDAOInt roledao;
-
-	@Autowired
-	AttachmentServiceInt attachmnetService;
 
 	@Override
 	public Class<UserDTO> getDTOClass() {
@@ -42,11 +38,6 @@ public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 		if (dto.getId() != null && dto.getId() > 0) {
 			UserDTO userDto = findByPk(dto.getId(), userContext);
 			dto.setLastLogin(userDto.getLastLogin());
-		}
-
-		if (dto.getId() != null && dto.getId() > 0) {
-
-			dto.setImageId(findByPk(dto.getId(), userContext).getImageId());
 		}
 	}
 
@@ -76,16 +67,6 @@ public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 			whereCondition.add(builder.equal(qRoot.get("status"), dto.getStatus()));
 		}
 		return whereCondition;
-	}
-
-	@Override
-	public void delete(UserDTO dto, UserContext userContext) {
-
-		if (dto.getImageId() != null && dto.getImageId() > 0) {
-
-			attachmnetService.delete(dto.getImageId(), userContext);
-		}
-		super.delete(dto, userContext);
 	}
 
 }

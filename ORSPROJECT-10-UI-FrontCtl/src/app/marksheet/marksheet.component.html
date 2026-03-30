@@ -1,60 +1,153 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 150px;
+    padding-bottom: 150px;
+  }
+</style>
+
 <app-navbar></app-navbar>
 
-<div align="center">
-    <h1 *ngIf="!form.data.id" align="center" style="margin-bottom: 5px; color: navy">Add Marksheet</h1>
-    <h1 *ngIf="form.data.id>0" align="center" style="margin-bottom: 5px; color: navy">Update Marksheet</h1>
+<div class="hm">
 
-    <div style="height: 20px; margin-bottom: 10px; text-align: center;">
-        <h3 style="margin: 0; color: green;" *ngIf="!form.error && form.message">{{ form.message }}</h3>
-        <h3 style="margin: 0; color: red;" *ngIf="form.error && form.message">{{ form.message }}</h3>
+  <div class="row">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Marksheet
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Marksheet
+          </h3>
+
+          <!-- Success Message -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error Message -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Roll No -->
+          <span><b>Roll No</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-id-badge"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+                   name="rollNo"
+                   [(ngModel)]="form.data.rollNo"
+                   maxlength="5"
+                   placeholder="Enter Roll No">
+          </div>
+          <small class="text-danger">{{ form.inputerror.rollNo }}</small>
+
+          <!-- Student Name -->
+          <span class="mt-2 d-block"><b>Student Name</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-user-graduate"></i>
+              </div>
+            </div>
+            <select class="form-control"
+                    name="studentId"
+                    [(ngModel)]="form.data.studentId">
+              <option value="undefined">------------Select------------</option>
+              <option *ngFor="let obj of form.preload.studentList" [value]="obj.key">
+                {{ obj.value }}
+              </option>
+            </select>
+          </div>
+          <small class="text-danger">{{ form.inputerror.studentId }}</small>
+
+          <!-- Physics -->
+          <span class="mt-2 d-block"><b>Physics</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-atom"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+                   name="physics"
+                   [(ngModel)]="form.data.physics"
+                   maxlength="3"
+                   placeholder="Enter Physics Marks">
+          </div>
+          <small class="text-danger">{{ form.inputerror.physics }}</small>
+
+          <!-- Chemistry -->
+          <span class="mt-2 d-block"><b>Chemistry</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-flask"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+                   name="chemistry"
+                   [(ngModel)]="form.data.chemistry"
+                   maxlength="3"
+                   placeholder="Enter Chemistry Marks">
+          </div>
+          <small class="text-danger">{{ form.inputerror.chemistry }}</small>
+
+          <!-- Maths -->
+          <span class="mt-2 d-block"><b>Maths</b> <span style="color:red">*</span></span>
+          <div class="input-group mb-2">
+            <div class="input-group-prepend">
+              <div class="input-group-text">
+                <i class="fa fa-square-root-alt"></i>
+              </div>
+            </div>
+            <input type="text" class="form-control"
+                   name="maths"
+                   [(ngModel)]="form.data.maths"
+                   maxlength="3"
+                   placeholder="Enter Maths Marks">
+          </div>
+          <small class="text-danger">{{ form.inputerror.maths }}</small>
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+
+            <button class="btn btn-success btn-md"
+                    (click)="submit()">
+              Save
+            </button>
+
+            &nbsp;
+
+            <button class="btn btn-warning btn-md"
+                    (click)="forward('marksheetlist')">
+              List
+            </button>
+
+          </div>
+
+        </div>
+      </div>
     </div>
 
-    <table>
-        <tr>
-            <th align="left">Roll No<span style="color: red">*</span></th>
-            <td><input type="text" name="rollNo" [(ngModel)]="form.data.rollNo" maxlength="5" placeholder="Enter Roll No"></td>
-            <td style="position: fixed; color: red;">{{form.inputerror.rollNo}}</td>
-        </tr>
+    <div class="col-md-4"></div>
+  </div>
 
-        <tr>
-            <th align="left">Name<span style="color: red">*</span></th>
-            <td>
-                <select name="studentId" [(ngModel)]="form.data.studentId" style="width: 170px;">
-                    <option value="undefined">------------Select------------</option>
-                    <option *ngFor="let obj of form.preload.studentList" [value]="obj.key">{{obj.value}}</option>
-                </select>
-            </td>
-            <td style="position: fixed; color: red;">{{form.inputerror.studentId}}</td>
-        </tr>
-
-        <tr>
-            <th align="left">Physics<span style="color: red">*</span></th>
-            <td><input type="text" name="physics" [(ngModel)]="form.data.physics" maxlength="3" placeholder="Enter Physics Marks"></td>
-            <td style="position: fixed; color: red;">{{form.inputerror.physics}}</td>
-        </tr>
-
-        <tr>
-            <th align="left">Chemistry<span style="color: red">*</span></th>
-            <td><input type="text" name="chemistry" [(ngModel)]="form.data.chemistry" maxlength="3" placeholder="Enter Chemistry Marks"></td>
-            <td style="position: fixed; color: red;">{{form.inputerror.chemistry}}</td>
-        </tr>
-
-        <tr>
-            <th align="left">Maths<span style="color: red">*</span></th>
-            <td><input type="text" name="maths" [(ngModel)]="form.data.maths" maxlength="3" placeholder="Enter Maths Marks"></td>
-            <td style="position: fixed; color: red;">{{form.inputerror.maths}}</td>
-        </tr>
-
-        <tr></tr>
-
-        <tr>
-            <th></th>
-            <td align="left" colspan="2">
-                <button (click)="submit()">save</button> &nbsp;
-                <button (click)="forward('marksheetlist')">list</button>
-            </td>
-        </tr>
-    </table>
 </div>
 
 <app-footer></app-footer>
