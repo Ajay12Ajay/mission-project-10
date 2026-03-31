@@ -9,6 +9,13 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code st_user}. Stores authentication credentials,
+ * profile details, role assignment, and login tracking. Role name is
+ * denormalized by the DAO layer. Unique key: {@code loginId}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "st_user")
 public class UserDTO extends BaseDTO {
@@ -25,9 +32,11 @@ public class UserDTO extends BaseDTO {
 	@Column(name = "password", length = 50)
 	private String password;
 
+	/** Foreign key referencing the user's assigned role. */
 	@Column(name = "role_id")
 	private Long roleId;
 
+	/** Denormalized role name populated by the DAO layer. */
 	@Column(name = "role_name", length = 50)
 	private String roleName = null;
 
@@ -43,15 +52,19 @@ public class UserDTO extends BaseDTO {
 	@Column(name = "alternate_mobile", length = 50)
 	private String alternateMobile;
 
+	/** Account status (e.g., {@code "Active"}, {@code "Inactive"}). */
 	@Column(name = "status", length = 20)
 	private String status;
 
+	/** Timestamp of the user's most recent successful login. */
 	@Column(name = "last_login")
 	private Timestamp lastLogin;
 
+	/** Count of consecutive failed login attempts. Defaults to {@code 0}. */
 	@Column(name = "unsucess_login")
 	private Integer unsucessfullLoginAttempt = 0;
 
+	/** Foreign key to the user's profile picture attachment. */
 	@Column(name = "image_id")
 	private Long imageId;
 
@@ -167,33 +180,33 @@ public class UserDTO extends BaseDTO {
 		this.imageId = imageId;
 	}
 
+	/** @return {@code null} — user has no dropdown display value. */
 	@Override
 	public String getValue() {
-
 		return null;
 	}
 
+	/** @return {@code "loginId"} */
 	@Override
 	public String getUniqueKey() {
-
 		return "loginId";
 	}
 
+	/** @return {@code loginId} */
 	@Override
 	public String getUniqueValue() {
-
 		return loginId;
 	}
 
+	/** @return {@code "Login Id"} */
 	@Override
 	public String getLabel() {
-
 		return "Login Id";
 	}
 
+	/** @return {@code "User"} */
 	@Override
 	public String getTableName() {
-
 		return "User";
 	}
 

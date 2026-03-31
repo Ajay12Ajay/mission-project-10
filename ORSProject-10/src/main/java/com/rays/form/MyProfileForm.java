@@ -6,6 +6,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * Form bean for updating the logged-in user's own profile details.
+ * {@code phone} must be exactly 10 digits. Does not extend
+ * {@link com.rays.common.BaseForm} and has no {@code getDto()} — profile
+ * updates are handled directly in the service layer.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class MyProfileForm {
 
 	@NotEmpty(message = "First Name is required")

@@ -8,6 +8,12 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.CollegeDTO;
 
+/**
+ * Form bean for College add/update operations. All fields are required;
+ * {@code phoneNo} must be exactly 10 digits.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class CollegeForm extends BaseForm {
 
 	@NotEmpty(message = "Name is required")
@@ -66,16 +72,15 @@ public class CollegeForm extends BaseForm {
 		this.phoneNo = phoneNo;
 	}
 
+	/** @return a populated {@link CollegeDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		CollegeDTO dto = initDTO(new CollegeDTO());
 		dto.setName(name);
 		dto.setAddress(address);
 		dto.setState(state);
 		dto.setCity(city);
 		dto.setPhoneNo(phoneNo);
-
 		return dto;
 	}
 

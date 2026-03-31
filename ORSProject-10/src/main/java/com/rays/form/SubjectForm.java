@@ -8,6 +8,12 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.SubjectDTO;
 
+/**
+ * Form bean for Subject add/update operations. {@code courseId} must be at
+ * least 1. All other fields are required.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class SubjectForm extends BaseForm {
 
 	@NotNull(message = "Course is required")
@@ -54,16 +60,14 @@ public class SubjectForm extends BaseForm {
 		this.description = description;
 	}
 
+	/** @return a populated {@link SubjectDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		SubjectDTO dto = initDTO(new SubjectDTO());
-
 		dto.setCourseId(courseId);
 		dto.setCourseName(courseName);
 		dto.setName(name);
 		dto.setDescription(description);
-
 		return dto;
 	}
 

@@ -10,6 +10,12 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.TimeTableDTO;
 
+/**
+ * Form bean for TimeTable add/update operations. {@code courseId} and
+ * {@code subjectId} must each be at least 1. All other fields are required.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class TimeTableForm extends BaseForm {
 
 	@NotNull(message = "Course is required")
@@ -100,9 +106,9 @@ public class TimeTableForm extends BaseForm {
 		this.description = description;
 	}
 
+	/** @return a populated {@link TimeTableDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		TimeTableDTO dto = initDTO(new TimeTableDTO());
 		dto.setCourseId(courseId);
 		dto.setCourseName(courseName);
@@ -112,7 +118,6 @@ public class TimeTableForm extends BaseForm {
 		dto.setExamTime(examTime);
 		dto.setSemester(semester);
 		dto.setDescription(description);
-
 		return dto;
 	}
 

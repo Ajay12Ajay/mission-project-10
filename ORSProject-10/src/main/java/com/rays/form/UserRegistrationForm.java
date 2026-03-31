@@ -7,6 +7,14 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 
+/**
+ * Form bean for public user self-registration. {@code loginId} must be a valid
+ * email; {@code phone} must be exactly 10 digits. Does not extend
+ * {@link com.rays.common.BaseForm} — registration is handled directly in
+ * {@link com.rays.ctl.LoginCtl#signUp}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class UserRegistrationForm {
 
 	@NotEmpty(message = "First Name is required")

@@ -6,6 +6,12 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code st_course}. Unique key: {@code name}. Used in
+ * dropdown lists with {@code name} as the display value.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "st_course")
 public class CourseDTO extends BaseDTO {
@@ -43,33 +49,33 @@ public class CourseDTO extends BaseDTO {
 		this.description = description;
 	}
 
+	/** @return {@code name} — used as dropdown display value. */
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
+	/** @return {@code "name"} */
 	@Override
 	public String getUniqueKey() {
-		// TODO Auto-generated method stub
 		return "name";
 	}
 
+	/** @return {@code name} */
 	@Override
 	public String getUniqueValue() {
-		// TODO Auto-generated method stub
 		return name;
 	}
 
+	/** @return {@code "Course Name"} */
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return "Course Name";
 	}
 
+	/** @return {@code "Course"} */
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "Course";
 	}
 

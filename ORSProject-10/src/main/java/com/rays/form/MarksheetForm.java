@@ -9,6 +9,13 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.MarksheetDTO;
 
+/**
+ * Form bean for Marksheet add/update operations. Marks for physics, chemistry,
+ * and maths must each be between 0 and 99. {@code studentId} must be at least
+ * 1.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class MarksheetForm extends BaseForm {
 
 	@NotEmpty(message = "Roll No is required")
@@ -83,9 +90,9 @@ public class MarksheetForm extends BaseForm {
 		this.maths = maths;
 	}
 
+	/** @return a populated {@link MarksheetDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		MarksheetDTO dto = initDTO(new MarksheetDTO());
 		dto.setRollNo(rollNo);
 		dto.setName(name);
@@ -93,7 +100,6 @@ public class MarksheetForm extends BaseForm {
 		dto.setPhysics(physics);
 		dto.setChemistry(chemistry);
 		dto.setMaths(maths);
-
 		return dto;
 	}
 

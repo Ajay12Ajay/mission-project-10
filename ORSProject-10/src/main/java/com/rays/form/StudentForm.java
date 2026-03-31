@@ -12,6 +12,13 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.StudentDTO;
 
+/**
+ * Form bean for Student add/update operations. {@code email} must be a valid
+ * email address; {@code phoneNo} must be exactly 10 digits. {@code collegeId}
+ * must be at least 1.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class StudentForm extends BaseForm {
 
 	@NotEmpty(message = "Enroll No is required")
@@ -104,11 +111,10 @@ public class StudentForm extends BaseForm {
 		this.collegeName = collegeName;
 	}
 
+	/** @return a populated {@link StudentDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		StudentDTO dto = initDTO(new StudentDTO());
-
 		dto.setEnrolNo(enrolNo);
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
@@ -117,7 +123,6 @@ public class StudentForm extends BaseForm {
 		dto.setEmail(email);
 		dto.setCollegeId(collegeId);
 		dto.setCollegeName(collegeName);
-
 		return dto;
 	}
 

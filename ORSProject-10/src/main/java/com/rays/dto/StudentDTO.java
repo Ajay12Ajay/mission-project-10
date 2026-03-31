@@ -8,6 +8,13 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code st_student}. Stores student personal details.
+ * College name is denormalized from the college record. Unique key:
+ * {@code enrolNo}. Dropdown value returns full name (firstName + lastName).
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "st_student")
 public class StudentDTO extends BaseDTO {
@@ -30,9 +37,11 @@ public class StudentDTO extends BaseDTO {
 	@Column(name = "email", length = 50)
 	private String email;
 
+	/** Foreign key referencing the associated college. */
 	@Column(name = "college_id")
 	private Long collegeId;
 
+	/** Denormalized college name populated by the DAO layer. */
 	@Column(name = "college_name", length = 50)
 	private String collegeName;
 
@@ -100,33 +109,35 @@ public class StudentDTO extends BaseDTO {
 		this.collegeName = collegeName;
 	}
 
+	/**
+	 * @return {@code firstName + " " + lastName} — used as dropdown display value.
+	 */
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return firstName + " " + lastName;
 	}
 
+	/** @return {@code "enrolNo"} */
 	@Override
 	public String getUniqueKey() {
-		// TODO Auto-generated method stub
 		return "enrolNo";
 	}
 
+	/** @return {@code enrolNo} */
 	@Override
 	public String getUniqueValue() {
-		// TODO Auto-generated method stub
 		return enrolNo;
 	}
 
+	/** @return {@code "Enroll No"} */
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return "Enroll No";
 	}
 
+	/** @return {@code "Student"} */
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "Student";
 	}
 

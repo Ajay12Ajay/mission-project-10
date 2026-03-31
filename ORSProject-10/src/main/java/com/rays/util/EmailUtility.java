@@ -1,4 +1,5 @@
 package com.rays.util;
+
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -9,54 +10,40 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
-
-
-
 /**
- * EmailUtility provides the email services 
- * @author Ajay Pratap Kerketta
+ * Utility class for sending emails via JavaMail over SMTP with TLS. SMTP
+ * configuration (host, port, credentials) is read from
+ * {@code application.properties}.
  *
+ * @author Ajay Pratap Kerketta
  */
 public class EmailUtility {
+
 	/**
-	 * Create Resource Bundle to read properties file
+	 * Resource bundle for reading SMTP and email credentials from
+	 * {@code application.properties}.
 	 */
 	static ResourceBundle rb = ResourceBundle.getBundle("application");
 
-	/**
-	 * Email Server
-	 */
+	/** SMTP server hostname. */
 	private static final String SMTP_HOST_NAME = rb.getString("smtp.server");
 
-	/**
-	 * Email Server Port
-	 */
+	/** SMTP server port. */
 	private static final String SMTP_PORT = rb.getString("smtp.port");
 
-	/**
-	 * Session Factory, A session is a connection to email server.
-	 */
+	/** SSL socket factory class used for secure connections. */
 	private static final String SSL_FACTORY = "javax.net.ssl.SSLSocketFactory";
 
-	/**
-	 * Administrator's email id by which all messages are sent
-	 */
+	/** Administrator email address used as the sender for all outgoing messages. */
 	private static final String emailFromAddress = rb.getString("email.login");
 
-	/**
-	 * Administrator email's password
-	 */
+	/** Password for the administrator email account. */
 	private static final String emailPassword = rb.getString("email.pwd");
 
-	/**
-	 * Email server properties
-	 */
-
+	/** JavaMail session properties configured for SMTP with STARTTLS. */
 	private static Properties props = new Properties();
 
-	/**
-	 * Static block to initialize static parameters
-	 */
+	/** Initializes SMTP session properties at class load time. */
 	static {
 		props.put("mail.smtp.host", SMTP_HOST_NAME);
 		props.put("mail.smtp.auth", "true");
@@ -73,13 +60,15 @@ public class EmailUtility {
 	}
 
 	/**
-	 * Sends an Email
+	 * Sends an email using the configuration in the given {@link EmailMessage}.
+	 * Supports TO, CC, and BCC recipients (comma-separated). Sets the MIME type
+	 * based on {@link EmailMessage#HTML_MSG} or {@link EmailMessage#TEXT_MSG}.
+	 * Exceptions are caught and printed; no exception is propagated to the caller.
 	 *
-	 * @param emailMessageDTO
-	 *            : Email message
-	 * @throws ApplicationException
+	 * @param emailMessageDTO the email message containing recipients, subject,
+	 *                        body, and type
 	 */
-	public static void sendMail(EmailMessage emailMessageDTO)  {
+	public static void sendMail(EmailMessage emailMessageDTO) {
 
 		try {
 

@@ -11,6 +11,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code ST_ATTACHMENT}. Stores file metadata (name, type,
+ * description) and binary content for user profile pictures or other uploaded
+ * documents. No unique-key constraint is enforced.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "ST_ATTACHMENT")
 public class AttachmentDTO extends BaseDTO {
@@ -24,16 +31,25 @@ public class AttachmentDTO extends BaseDTO {
 	@Column(name = "DESCRIPTION", length = 500)
 	protected String description = null;
 
+	/** Foreign key referencing the user this attachment belongs to. */
 	@Column(name = "USER_ID")
 	protected Long userId = null;
 
+	/** Binary content of the uploaded file, stored as a LOB. */
 	@Lob
 	@Column(name = "DOC")
 	private byte[] doc;
 
+	/** Default no-arg constructor. */
 	public AttachmentDTO() {
 	}
 
+	/**
+	 * Convenience constructor that populates name, type, and binary content from a
+	 * {@link MultipartFile}.
+	 *
+	 * @param file the uploaded multipart file
+	 */
 	public AttachmentDTO(MultipartFile file) {
 		name = file.getOriginalFilename();
 		type = file.getContentType();
@@ -77,6 +93,7 @@ public class AttachmentDTO extends BaseDTO {
 		this.userId = userId;
 	}
 
+	/** @return {@code null} — attachments have no display value for dropdowns. */
 	public String getValue() {
 		return null;
 	}
@@ -89,27 +106,27 @@ public class AttachmentDTO extends BaseDTO {
 		this.doc = doc;
 	}
 
+	/** @return {@code null} — no unique key enforced for attachments. */
 	@Override
 	public String getUniqueKey() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code null} */
 	@Override
 	public String getUniqueValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code null} */
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code null} */
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 }

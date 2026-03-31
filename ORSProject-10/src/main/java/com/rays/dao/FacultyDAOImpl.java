@@ -17,6 +17,13 @@ import com.rays.dto.CourseDTO;
 import com.rays.dto.FacultyDTO;
 import com.rays.dto.SubjectDTO;
 
+/**
+ * DAO implementation for {@link FacultyDTO}.
+ * Resolves and populates collegeName, courseName, and subjectName from their respective DAOs.
+ * Supports search filters on firstName, email, collegeName, courseName, and subjectName (prefix-match).
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Repository
 public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> implements FacultyDAOInt {
 
@@ -29,12 +36,22 @@ public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> implements FacultyDA
 	@Autowired
 	SubjectDAOInt subjectDao;
 
+	/**
+	 * @return {@link FacultyDTO}{@code .class}
+	 */
 	@Override
 	public Class<FacultyDTO> getDTOClass() {
 		// TODO Auto-generated method stub
 		return FacultyDTO.class;
 	}
 
+	/**
+	 * Populates {@code collegeName}, {@code courseName}, and {@code subjectName}
+	 * by looking up each related entity by its ID before persisting or merging.
+	 *
+	 * @param dto         the faculty DTO to populate
+	 * @param userContext the current user's context
+	 */
 	@Override
 	protected void populate(FacultyDTO dto, UserContext userContext) {
 		// TODO Auto-generated method stub
@@ -60,6 +77,16 @@ public class FacultyDAOImpl extends BaseDAOImpl<FacultyDTO> implements FacultyDA
 		}
 	}
 
+	/**
+	 * Builds WHERE clause predicates for faculty search.
+	 * Applies prefix-match (LIKE) on: {@code firstName}, {@code email},
+	 * {@code collegeName}, {@code courseName}, {@code subjectName} — only for non-empty values.
+	 *
+	 * @param dto     the filter criteria DTO
+	 * @param builder the JPA criteria builder
+	 * @param qRoot   the query root for {@link FacultyDTO}
+	 * @return list of predicates to apply; empty list returns all records
+	 */
 	@Override
 	protected List<Predicate> getWhereClause(FacultyDTO dto, CriteriaBuilder builder, Root<FacultyDTO> qRoot) {
 		// TODO Auto-generated method stub

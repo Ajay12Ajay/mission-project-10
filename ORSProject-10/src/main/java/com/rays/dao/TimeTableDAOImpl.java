@@ -16,6 +16,13 @@ import com.rays.dto.CourseDTO;
 import com.rays.dto.SubjectDTO;
 import com.rays.dto.TimeTableDTO;
 
+/**
+ * DAO implementation for {@link TimeTableDTO}.
+ * Populates {@code subjectName} and {@code courseName} from their respective DAOs before persist/merge.
+ * Supports search filters on subjectName and courseName (prefix-match).
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Repository
 public class TimeTableDAOImpl extends BaseDAOImpl<TimeTableDTO> implements TimeTableDAOInt {
 
@@ -25,12 +32,22 @@ public class TimeTableDAOImpl extends BaseDAOImpl<TimeTableDTO> implements TimeT
 	@Autowired
 	CourseDAOInt courseService;
 
+	/**
+	 * @return {@link TimeTableDTO}{@code .class}
+	 */
 	@Override
 	public Class<TimeTableDTO> getDTOClass() {
 		// TODO Auto-generated method stub
 		return TimeTableDTO.class;
 	}
 
+	/**
+	 * Populates {@code subjectName} and {@code courseName} by looking up each
+	 * entity via its respective ID before persisting or merging.
+	 *
+	 * @param dto         the timetable DTO to populate
+	 * @param userContext the current user's context
+	 */
 	@Override
 	protected void populate(TimeTableDTO dto, UserContext userContext) {
 		// TODO Auto-generated method stub
@@ -45,6 +62,16 @@ public class TimeTableDAOImpl extends BaseDAOImpl<TimeTableDTO> implements TimeT
 		}
 	}
 
+	/**
+	 * Builds WHERE clause predicates for timetable search.
+	 * Applies prefix-match (LIKE) on: {@code subjectName}, {@code courseName}
+	 * — only for non-empty values.
+	 *
+	 * @param dto     the filter criteria DTO
+	 * @param builder the JPA criteria builder
+	 * @param qRoot   the query root for {@link TimeTableDTO}
+	 * @return list of predicates to apply; empty list returns all records
+	 */
 	@Override
 	protected List<Predicate> getWhereClause(TimeTableDTO dto, CriteriaBuilder builder, Root<TimeTableDTO> qRoot) {
 		// TODO Auto-generated method stub

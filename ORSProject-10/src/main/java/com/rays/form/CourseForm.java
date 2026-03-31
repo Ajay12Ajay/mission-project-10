@@ -6,6 +6,11 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.CourseDTO;
 
+/**
+ * Form bean for Course add/update operations. All fields are required.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class CourseForm extends BaseForm {
 
 	@NotEmpty(message = "Name is required")
@@ -41,14 +46,13 @@ public class CourseForm extends BaseForm {
 		this.description = description;
 	}
 
+	/** @return a populated {@link CourseDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		CourseDTO dto = initDTO(new CourseDTO());
 		dto.setName(name);
 		dto.setDuration(duration);
 		dto.setDescription(description);
-
 		return dto;
 	}
 

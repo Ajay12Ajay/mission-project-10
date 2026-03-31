@@ -8,19 +8,30 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code st_timetable}. Stores exam schedule details.
+ * Course and subject names are denormalized by the DAO layer. Unique key:
+ * {@code courseName}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "st_timetable")
 public class TimeTableDTO extends BaseDTO {
 
+	/** Foreign key referencing the associated course. */
 	@Column(name = "course_id", length = 50)
 	private long courseId;
 
+	/** Denormalized course name populated by the DAO layer. */
 	@Column(name = "course_name", length = 50)
 	private String courseName;
 
+	/** Foreign key referencing the associated subject. */
 	@Column(name = "subject_id", length = 50)
 	private long subjectId;
 
+	/** Denormalized subject name populated by the DAO layer. */
 	@Column(name = "subject_name", length = 50)
 	private String subjectName;
 
@@ -100,33 +111,33 @@ public class TimeTableDTO extends BaseDTO {
 		this.description = description;
 	}
 
+	/** @return {@code null} — timetable has no dropdown display value. */
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code "courseName"} */
 	@Override
 	public String getUniqueKey() {
-		// TODO Auto-generated method stub
 		return "courseName";
 	}
 
+	/** @return {@code courseName} */
 	@Override
 	public String getUniqueValue() {
-		// TODO Auto-generated method stub
 		return courseName;
 	}
 
+	/** @return {@code null} */
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code "TimeTable"} */
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "TimeTable";
 	}
 

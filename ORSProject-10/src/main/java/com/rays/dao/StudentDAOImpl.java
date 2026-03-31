@@ -15,18 +15,34 @@ import com.rays.common.UserContext;
 import com.rays.dto.CollegeDTO;
 import com.rays.dto.StudentDTO;
 
+/**
+ * DAO implementation for {@link StudentDTO}.
+ * Populates {@code collegeName} from {@link CollegeDAOInt} before persist/merge.
+ * Supports search filters on enrolNo, firstName, collegeName, email, dob, and phoneNo.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Repository
 public class StudentDAOImpl extends BaseDAOImpl<StudentDTO> implements StudentDAOInt {
 
 	@Autowired
 	CollegeDAOInt collegedao = null;
 
+	/**
+	 * @return {@link StudentDTO}{@code .class}
+	 */
 	@Override
 	public Class<StudentDTO> getDTOClass() {
 		// TODO Auto-generated method stub
 		return StudentDTO.class;
 	}
 
+	/**
+	 * Populates {@code collegeName} by looking up the college via {@code collegeId}.
+	 *
+	 * @param dto         the student DTO to populate
+	 * @param userContext the current user's context
+	 */
 	@Override
 	protected void populate(StudentDTO dto, UserContext userContext) {
 		// TODO Auto-generated method stub
@@ -36,6 +52,16 @@ public class StudentDAOImpl extends BaseDAOImpl<StudentDTO> implements StudentDA
 		}
 	}
 
+	/**
+	 * Builds WHERE clause predicates for student search.
+	 * Applies prefix-match (LIKE) on: {@code enrolNo}, {@code firstName}, {@code collegeName},
+	 * {@code email}, {@code phoneNo}; exact-match on {@code dob} — only for non-empty/non-null values.
+	 *
+	 * @param dto     the filter criteria DTO
+	 * @param builder the JPA criteria builder
+	 * @param qRoot   the query root for {@link StudentDTO}
+	 * @return list of predicates to apply; empty list returns all records
+	 */
 	@Override
 	protected List<Predicate> getWhereClause(StudentDTO dto, CriteriaBuilder builder, Root<StudentDTO> qRoot) {
 		// TODO Auto-generated method stub

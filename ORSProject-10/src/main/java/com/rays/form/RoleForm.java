@@ -6,6 +6,12 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.RoleDTO;
 
+/**
+ * Form bean for Role add/update operations. Both {@code name} and
+ * {@code description} are required.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class RoleForm extends BaseForm {
 
 	@NotEmpty(message = "Name is required")
@@ -30,6 +36,7 @@ public class RoleForm extends BaseForm {
 		this.description = description;
 	}
 
+	/** @return a populated {@link RoleDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
 		// TODO Auto-generated method stub

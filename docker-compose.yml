@@ -1,40 +1,46 @@
+version: '3.8'
 services:
-
-  mysql:
-    image: mysql:8.0
-    container_name: ors-mysql
-    restart: always
-    environment:
-      MYSQL_ROOT_PASSWORD: root
-      MYSQL_DATABASE: project_10
-      MYSQL_ROOT_HOST: "%"
-      TZ: Asia/Kolkata
+  frontend:
+    container_name: frontend-container
+    build:
+      context: ./ORSPROJECT-10-UI      
     ports:
-      - "3308:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
+      - "4200:80"
+    depends_on:
+      - backend  
+    networks:
+      - my-network  
 
   backend:
+    container_name: backend-container
     build:
-      context: ./ORSproject-10
-      dockerfile: dockerfile
-    container_name: ors-backend
+      context: ./ORSproject-10         
     depends_on:
       - mysql        
     ports:
       - "8080:8080"
+    networks:
+      - my-network
+    # Add this line to fix hostname resolution
+    extra_hosts:
+      - "mysql:host-gateway"
 
-
-  frontend:
-    build:
-      context: ./ORSPROJECT-10-UI
-      dockerfile: Dockerfile
-    container_name: ors-frontend
-    restart: always
-    depends_on:
-      - backend      
+  mysql:
+    container_name: mysql
+    image: mysql:8.0        
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: project_10      
     ports:
-      - "4200:80"
+      - "3308:3306"
+    volumes:
+      - ./mysql_data:/var/lib/mysql
+    networks:
+      - my-network
+ 
+networks:
+  my-network:
+    driver: bridge    
 
 volumes:
   mysql_data:

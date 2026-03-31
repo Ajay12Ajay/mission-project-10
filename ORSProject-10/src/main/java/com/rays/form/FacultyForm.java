@@ -11,6 +11,13 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.FacultyDTO;
 
+/**
+ * Form bean for Faculty add/update operations. All fields are required.
+ * {@code phoneNo} must be exactly 10 digits. {@code collegeId},
+ * {@code courseId}, and {@code subjectId} must each be at least 1.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class FacultyForm extends BaseForm {
 
 	@NotEmpty(message = "First Name is required")
@@ -157,9 +164,9 @@ public class FacultyForm extends BaseForm {
 		this.subjectName = subjectName;
 	}
 
+	/** @return a populated {@link FacultyDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		FacultyDTO dto = initDTO(new FacultyDTO());
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
@@ -174,7 +181,6 @@ public class FacultyForm extends BaseForm {
 		dto.setCourseName(courseName);
 		dto.setSubjectId(subjectId);
 		dto.setSubjectName(subjectName);
-
 		return dto;
 	}
 

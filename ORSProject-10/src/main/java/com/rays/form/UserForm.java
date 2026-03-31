@@ -11,6 +11,13 @@ import com.rays.common.BaseDTO;
 import com.rays.common.BaseForm;
 import com.rays.dto.UserDTO;
 
+/**
+ * Form bean for User add/update operations (admin use). {@code phone} must be
+ * exactly 10 digits; {@code roleId} must be at least 1. All fields are required
+ * except {@code roleName} (populated by the DAO layer).
+ *
+ * @author Ajay Pratap Kerketta
+ */
 public class UserForm extends BaseForm {
 
 	@NotEmpty(message = "First Name is required")
@@ -135,9 +142,9 @@ public class UserForm extends BaseForm {
 		this.status = status;
 	}
 
+	/** @return a populated {@link UserDTO} built from this form's fields. */
 	@Override
 	public BaseDTO getDto() {
-
 		UserDTO dto = initDTO(new UserDTO());
 		dto.setFirstName(firstName);
 		dto.setLastName(lastName);
@@ -150,7 +157,6 @@ public class UserForm extends BaseForm {
 		dto.setPhone(phone);
 		dto.setAlternateMobile(alternateMobile);
 		dto.setStatus(status);
-
 		return dto;
 	}
 

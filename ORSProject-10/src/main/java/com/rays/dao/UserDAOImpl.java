@@ -15,18 +15,36 @@ import com.rays.common.UserContext;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
 
+/**
+ * DAO implementation for {@link UserDTO}.
+ * Resolves {@code roleName} from {@link RoleDAOInt} and preserves {@code lastLogin}
+ * from the existing record before persist/merge.
+ * Supports search filters on firstName, loginId, roleId, dob, and status.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Repository
 public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 
 	@Autowired
 	RoleDAOInt roledao;
 
+	/**
+	 * @return {@link UserDTO}{@code .class}
+	 */
 	@Override
 	public Class<UserDTO> getDTOClass() {
 
 		return UserDTO.class;
 	}
 
+	/**
+	 * Populates {@code roleName} by looking up the role via {@code roleId},
+	 * and preserves {@code lastLogin} from the existing persisted record when updating.
+	 *
+	 * @param dto         the user DTO to populate
+	 * @param userContext the current user's context
+	 */
 	@Override
 	protected void populate(UserDTO dto, UserContext userContext) {
 		// TODO Auto-generated method stub
@@ -41,6 +59,17 @@ public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 		}
 	}
 
+	/**
+	 * Builds WHERE clause predicates for user search.
+	 * Applies prefix-match (LIKE) on: {@code firstName}, {@code loginId};
+	 * exact-match on: {@code roleId}, {@code dob}, {@code status}
+	 * — only for non-empty/non-zero/non-null values.
+	 *
+	 * @param dto     the filter criteria DTO
+	 * @param builder the JPA criteria builder
+	 * @param qRoot   the query root for {@link UserDTO}
+	 * @return list of predicates to apply; empty list returns all records
+	 */
 	@Override
 	protected List<Predicate> getWhereClause(UserDTO dto, CriteriaBuilder builder, Root<UserDTO> qRoot) {
 		// TODO Auto-generated method stub

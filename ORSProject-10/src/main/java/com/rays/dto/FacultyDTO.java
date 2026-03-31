@@ -8,6 +8,13 @@ import javax.persistence.Table;
 
 import com.rays.common.BaseDTO;
 
+/**
+ * Entity DTO mapped to {@code st_faculty}. Stores faculty personal details
+ * along with denormalized college, course, and subject names. Unique key:
+ * {@code email}.
+ *
+ * @author Ajay Pratap Kerketta
+ */
 @Entity
 @Table(name = "st_faculty")
 public class FacultyDTO extends BaseDTO {
@@ -33,21 +40,27 @@ public class FacultyDTO extends BaseDTO {
 	@Column(name = "qualification", length = 15)
 	private String qualification;
 
+	/** Foreign key to the associated college. */
 	@Column(name = "college_id", length = 50)
 	private long collegeId;
 
+	/** Denormalized college name populated by the DAO layer. */
 	@Column(name = "college_name", length = 50)
 	private String collegeName;
 
+	/** Foreign key to the associated course. */
 	@Column(name = "course_id", length = 50)
 	private long courseId;
 
+	/** Denormalized course name populated by the DAO layer. */
 	@Column(name = "course_name", length = 50)
 	private String courseName;
 
+	/** Foreign key to the associated subject. */
 	@Column(name = "subject_id", length = 50)
 	private long subjectId;
 
+	/** Denormalized subject name populated by the DAO layer. */
 	@Column(name = "subject_name", length = 50)
 	private String subjectName;
 
@@ -155,33 +168,33 @@ public class FacultyDTO extends BaseDTO {
 		this.subjectName = subjectName;
 	}
 
+	/** @return {@code null} — faculty has no dropdown display value. */
 	@Override
 	public String getValue() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
+	/** @return {@code "email"} */
 	@Override
 	public String getUniqueKey() {
-		// TODO Auto-generated method stub
 		return "email";
 	}
 
+	/** @return {@code email} */
 	@Override
 	public String getUniqueValue() {
-		// TODO Auto-generated method stub
 		return email;
 	}
 
+	/** @return {@code "Email"} */
 	@Override
 	public String getLabel() {
-		// TODO Auto-generated method stub
 		return "Email";
 	}
 
+	/** @return {@code "Faculty"} */
 	@Override
 	public String getTableName() {
-		// TODO Auto-generated method stub
 		return "Faculty";
 	}
 
