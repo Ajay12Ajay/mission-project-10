@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.rays.common.FrontCtl;
+
 
 /**
  * Main class for Spring Boot application.
@@ -19,11 +19,7 @@ import com.rays.common.FrontCtl;
 @SpringBootApplication
 public class ORSProject10Application {
 
-	/**
-	 * Front Controller used for handling request interception.
-	 */
-	@Autowired
-	private FrontCtl frontCtl;
+	
 
 	/**
 	 * Main method to run the Spring Boot application.

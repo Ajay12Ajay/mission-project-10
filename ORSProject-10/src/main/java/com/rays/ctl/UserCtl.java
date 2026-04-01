@@ -5,11 +5,14 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -21,15 +24,15 @@ import com.rays.common.ORSResponse;
 import com.rays.dto.AttachmentDTO;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
+import com.rays.form.MyProfileForm;
 import com.rays.form.UserForm;
 import com.rays.service.AttachmentServiceInt;
 import com.rays.service.RoleServiceInt;
 import com.rays.service.UserServiceInt;
 
 /**
- * REST controller for User CRUD and profile picture operations.
- * Inherits save, get, search, and deleteMany from {@link BaseCtl}.
- * Mapped to {@code /User}.
+ * REST controller for User CRUD and profile picture operations. Inherits save,
+ * get, search, and deleteMany from {@link BaseCtl}. Mapped to {@code /User}.
  *
  * @author Ajay Pratap Kerketta
  */
@@ -39,14 +42,15 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 	@Autowired
 	RoleServiceInt roleService;
-	
+
 	@Autowired
 	AttachmentServiceInt attachmentService;
 
 	/**
 	 * Returns all roles as a dropdown list for the User form.
 	 *
-	 * @return {@link ORSResponse} with {@code roleList} containing all available roles
+	 * @return {@link ORSResponse} with {@code roleList} containing all available
+	 *         roles
 	 */
 	@GetMapping("preload")
 	public ORSResponse preload() {
@@ -62,13 +66,14 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 	}
 
 	/**
-	 * Uploads or replaces the profile picture for the given user.
-	 * Saves the file as an {@link AttachmentDTO} and updates the user's {@code imageId} if new.
+	 * Uploads or replaces the profile picture for the given user. Saves the file as
+	 * an {@link AttachmentDTO} and updates the user's {@code imageId} if new.
 	 *
 	 * @param userId the ID of the user whose profile picture is being uploaded
 	 * @param file   the multipart image file to upload
 	 * @param req    the incoming HTTP request
-	 * @return {@link ORSResponse} with {@code success=true} and the saved {@code imageId}
+	 * @return {@link ORSResponse} with {@code success=true} and the saved
+	 *         {@code imageId}
 	 */
 	@PostMapping("/profilePic/{userId}")
 	public ORSResponse uploadPic(@PathVariable Long userId, @RequestParam("file") MultipartFile file,
@@ -110,7 +115,8 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 	 * Writes an error message if no image is found.
 	 *
 	 * @param userId   the ID of the user whose profile picture is to be downloaded
-	 * @param response the HTTP response; content type is set from the stored attachment type
+	 * @param response the HTTP response; content type is set from the stored
+	 *                 attachment type
 	 */
 	@GetMapping("/profilePic/{userId}")
 	public void downloadPic(@PathVariable Long userId, HttpServletResponse response) {
@@ -137,6 +143,37 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 			e.printStackTrace();
 		}
 
+	}
+
+	/**
+	 * Updates the profile information of the currently logged-in user.
+	 * 
+	 * @param form          the my profile form containing updated user details
+	 * @param bindingResult validation result
+	 * @return ORSResponse with success message if profile updated successfully
+	 */
+	@PostMapping("myProfile")
+	public ORSResponse myProfile(@RequestBody @Valid MyProfileForm form, BindingResult bindingResult) {
+
+		ORSResponse res = validate(bindingResult);
+
+		if (!res.isSuccess()) {
+			return res;
+		}
+
+		UserDTO dto = service.findByLoginId(userContext.getLoginId(), userContext);
+		dto.setFirstName(form.getFirstName());
+		dto.setLastName(form.getLastName());
+		dto.setDob(form.getDob());
+		dto.setPhone(form.getPhone());
+		dto.setGender(form.getGender());
+
+		service.update(dto, userContext);
+
+		res.setSuccess(true);
+		res.addMessage("Your Profile updated successfully..!!");
+
+		return res;
 	}
 
 }
