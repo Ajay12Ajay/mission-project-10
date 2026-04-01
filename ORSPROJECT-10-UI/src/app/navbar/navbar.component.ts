@@ -35,7 +35,7 @@ export class NavbarComponent {
     if (check != "null" && check != null) {
       this.form.data.fname = localStorage.getItem("fname");
       this.form.data.role = localStorage.getItem("role");
-      this.form.data.id=localStorage.getItem("userId");
+      this.form.data.id = localStorage.getItem("userId");
       return true;
     } else {
       return false;
@@ -55,4 +55,8 @@ export class NavbarComponent {
     this.servicelocator.forward("/myprofile/" + this.form.data.userId);
   }
 
+  goToDoc() {
+    window.open('assets/doc/index.html', '_blank');
+
+  }
 }
