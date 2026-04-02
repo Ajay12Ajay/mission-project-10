@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class ForgotpasswordComponent {
 
-   endpoint = "http://localhost:8080/Auth/forgetPassword";
+   endpoint = "http://localhost:8081/Auth/forgetPassword";
 
   form: any = {
     error: false,

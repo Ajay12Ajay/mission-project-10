@@ -24,7 +24,7 @@ export class GetmarksheetComponent extends BaseCtl {
     console.log(this.form.data.rollNo);
 
 
-    this.httpservice.get("http://localhost:8080/Marksheet/rollno/" + this.form.data.rollNo, function (res: any) {
+    this.httpservice.get("http://localhost:8081/Marksheet/rollno/" + this.form.data.rollNo, function (res: any) {
 
       if (res.success) {
         _self.form.list = res.result.data;

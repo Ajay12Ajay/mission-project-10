@@ -14,7 +14,7 @@
 
   <a class="navbar-brand" [routerLink]="['/dashboard']">
     <img *ngIf="!isLogin()" src="assets/img/customLogo.jpg" height="55px">
-    <img *ngIf="isLogin()" src="http://localhost:8080/User/profilePic/{{form.data.id}}" alt="profile" class="img" align="center">
+    <img *ngIf="isLogin()" src="http://localhost:8081/User/profilePic/{{form.data.id}}" alt="profile" class="img" align="center">
   </a>
 
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav"

@@ -11,7 +11,7 @@ import { TranslateService } from '@ngx-translate/core';
 })
 export class NavbarComponent {
 
-  endpoint = "http://localhost:8080/Auth/";
+  endpoint = "http://localhost:8081/Auth/";
 
   form: any = {
     data: {}
