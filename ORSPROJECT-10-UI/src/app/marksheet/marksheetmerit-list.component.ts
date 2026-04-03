@@ -24,7 +24,7 @@ export class MarksheetmeritListComponent extends BaseCtl {
   getMeritList() {
     var _self = this;
 
-    this.httpservice.get("http://localhost:8080/Marksheet/meritlist", function (res: any) {
+    this.httpservice.get("http://localhost:8081/Marksheet/meritlist", function (res: any) {
 
       if (res.success) {
         _self.form.list = res.result.list;

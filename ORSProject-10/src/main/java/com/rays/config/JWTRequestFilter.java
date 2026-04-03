@@ -7,12 +7,15 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.exception.JDBCConnectionException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DataAccessResourceFailureException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.CannotCreateTransactionException;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import com.rays.common.UserContext;
@@ -21,9 +24,9 @@ import com.rays.dto.UserDTO;
 import com.rays.service.JWTUserDetailsService;
 
 /**
- * JWT authentication filter that intercepts every request once per request lifecycle.
- * Validates the Bearer token, sets Spring Security context, and stores {@link UserContext}
- * in {@link UserContextHolder}.
+ * JWT authentication filter that intercepts every request once per request
+ * lifecycle. Validates the Bearer token, sets Spring Security context, and
+ * stores {@link UserContext} in {@link UserContextHolder}.
  *
  * @author Ajay Pratap Kerketta
  */
@@ -38,15 +41,16 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 
 	/**
 	 * Extracts and validates the JWT from the {@code Authorization: Bearer} header.
-	 * On success, sets the authentication in {@link SecurityContextHolder} and stores
-	 * the {@link UserContext} in thread-local storage. On failure, responds with
-	 * {@code 401 UNAUTHORIZED}.
+	 * On success, sets the authentication in {@link SecurityContextHolder} and
+	 * stores the {@link UserContext} in thread-local storage. On failure, responds
+	 * with {@code 401 UNAUTHORIZED}.
 	 *
 	 * @param request     the incoming HTTP request
 	 * @param response    the outgoing HTTP response
 	 * @param filterChain the filter chain to continue if authentication succeeds
 	 * @throws ServletException if a servlet error occurs
-	 * @throws IOException      if an I/O error occurs while writing the error response
+	 * @throws IOException      if an I/O error occurs while writing the error
+	 *                          response
 	 */
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -92,6 +96,11 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 				// ThreadLocal me set
 				UserContextHolder.setContext(context);
 
+			} catch (CannotCreateTransactionException | DataAccessResourceFailureException| JDBCConnectionException e) {
+				response.setStatus(HttpServletResponse.SC_SERVICE_UNAVAILABLE); // 503
+				response.setContentType("application/json");
+				response.getWriter().write("{\"result\":{\"message\":\"Database server down!! Please try again later.\"},\"success\":false}");
+				return;
 			} catch (Exception e) {
 				response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
 				response.getWriter().write("Token is invalid... plz login again..!!");
