@@ -24,6 +24,7 @@ import com.rays.common.ORSResponse;
 import com.rays.dto.AttachmentDTO;
 import com.rays.dto.RoleDTO;
 import com.rays.dto.UserDTO;
+import com.rays.form.ChangePasswordForm;
 import com.rays.form.MyProfileForm;
 import com.rays.form.UserForm;
 import com.rays.service.AttachmentServiceInt;
@@ -172,6 +173,37 @@ public class UserCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 		res.setSuccess(true);
 		res.addMessage("Your Profile updated successfully..!!");
+
+		return res;
+	}
+	
+	/**
+	 * Changes the password for the specified user.
+	 * 
+	 * @param form the change password form containing loginId, old password, and new password
+	 * @param bindingResult validation result
+	 * @return ORSResponse with success message if password changed, or error if old password is invalid
+	 */
+	@PostMapping("changePassword")
+	public ORSResponse changePassword(@RequestBody @Valid ChangePasswordForm form, BindingResult bindingResult) {
+
+		ORSResponse res = validate(bindingResult);
+
+		if (!res.isSuccess()) {
+			return res;
+		}
+
+		UserDTO changedDto = service.changePassword(form.getLoginId(), form.getOldPassword(), form.getNewPassword(),
+				userContext);
+
+		if (changedDto == null) {
+			res.setSuccess(false);
+			res.addMessage("Invalid old password");
+			return res;
+		}
+
+		res.setSuccess(true);
+		res.addMessage("Password has been changed");
 
 		return res;
 	}
