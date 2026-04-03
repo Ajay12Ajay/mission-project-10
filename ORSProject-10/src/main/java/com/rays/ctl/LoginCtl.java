@@ -134,7 +134,7 @@ public class LoginCtl extends BaseCtl<UserDTO, UserForm, UserServiceInt> {
 
 		session.invalidate();
 
-		res.addMessage("Logout successfully..!!");
+		res.addMessage("Logout successfully..!!!");
 
 		return res;
 	}

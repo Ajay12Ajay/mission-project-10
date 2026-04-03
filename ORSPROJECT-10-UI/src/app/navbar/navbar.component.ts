@@ -46,7 +46,9 @@ export class NavbarComponent {
     var _self = this;
     this.httpService.get(this.endpoint + 'logout', function (res: any) {
       localStorage.clear();
-      _self.router.navigateByUrl('login')
+      _self.router.navigateByUrl('login', {
+        state: { message: res.result.message }
+      })
     });
   }
 
@@ -60,7 +62,7 @@ export class NavbarComponent {
 
   }
 
-  handleImage(event:any){
-    event.target.src='https://i.pinimg.com/736x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg'
+  handleImage(event: any) {
+    event.target.src = 'https://i.pinimg.com/736x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg'
   }
 }

@@ -25,6 +25,10 @@ export class LoginComponent {
       _self.form.error = true;
       _self.form.message = errorMessage;
     }
+
+    // const nav = this.router.getCurrentNavigation();
+    // const message = nav?.extras?.state?.['message'];
+    // this.form.message = message;
   }
 
   signIn() {

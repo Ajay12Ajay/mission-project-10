@@ -14,8 +14,8 @@ import org.springframework.stereotype.Component;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 /**
- * Utility class for generating, validating, and parsing custom HS256 JWT tokens.
- * Secret and expiration are injected from application properties
+ * Utility class for generating, validating, and parsing custom HS256 JWT
+ * tokens. Secret and expiration are injected from application properties
  * ({@code jwt.secret}, {@code jwt.expiration}).
  *
  * @author Ajay Pratap Kerketta
@@ -32,7 +32,8 @@ public class JWTUtil {
 	private static final ObjectMapper objectMapper = new ObjectMapper();
 
 	/**
-	 * Generates a signed HS256 JWT token containing userId, loginId, role, iat, and exp claims.
+	 * Generates a signed HS256 JWT token containing userId, loginId, role, iat, and
+	 * exp claims.
 	 *
 	 * @param userId  the user's primary key
 	 * @param loginId the user's login identifier (used as JWT subject)
@@ -42,7 +43,13 @@ public class JWTUtil {
 	 */
 	public String generateToken(Long userId, String loginId, String role) throws Exception {
 		long nowMillis = System.currentTimeMillis();
-		long expMillis = nowMillis + jwtExpiration;
+
+		System.out.println("CURRENT TIME=================>" + nowMillis);
+		System.out.println("EXPIRATION TIME=================>" + jwtExpiration);
+
+		long expMillis = jwtExpiration;
+
+		System.out.println("EXPIRATION tot: TIME=================>" + expMillis);
 
 		// JWT Header
 		Map<String, Object> header = new HashMap<>();
@@ -65,13 +72,15 @@ public class JWTUtil {
 	}
 
 	/**
-	 * Validates a JWT token by verifying its structure, signature, subject, and expiry.
+	 * Validates a JWT token by verifying its structure, signature, subject, and
+	 * expiry.
 	 *
 	 * @param token           the JWT token string to validate
-	 * @param expectedLoginId the login ID expected to match the token's {@code sub} claim
+	 * @param expectedLoginId the login ID expected to match the token's {@code sub}
+	 *                        claim
 	 * @return {@code true} if the token is valid
-	 * @throws Exception if the token is malformed, the signature mismatches, the subject
-	 *                   doesn't match, or the token has expired
+	 * @throws Exception if the token is malformed, the signature mismatches, the
+	 *                   subject doesn't match, or the token has expired
 	 */
 	public boolean validateToken(String token, String expectedLoginId) throws Exception {
 		String[] parts = token.split("\\.");
@@ -165,7 +174,8 @@ public class JWTUtil {
 	 * @param data the input string to sign
 	 * @param key  the secret key string
 	 * @return the Base64URL-encoded signature
-	 * @throws Exception if the HMAC algorithm is unavailable or key initialization fails
+	 * @throws Exception if the HMAC algorithm is unavailable or key initialization
+	 *                   fails
 	 */
 	private String sign(String data, String key) throws Exception {
 		Mac mac = Mac.getInstance("HmacSHA256");
