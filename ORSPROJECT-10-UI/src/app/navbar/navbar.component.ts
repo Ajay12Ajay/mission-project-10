@@ -65,4 +65,16 @@ export class NavbarComponent {
   handleImage(event: any) {
     event.target.src = 'https://i.pinimg.com/736x/9e/83/75/9e837528f01cf3f42119c5aeeed1b336.jpg'
   }
+
+  isAdmin(): boolean {
+    return localStorage.getItem('role') === 'ADMIN';
+  }
+
+  isFaculty(): boolean {
+    return localStorage.getItem('role') === 'FACULTY';
+  }
+
+  isStudent(): boolean {
+    return localStorage.getItem('role') === 'STUDENT';
+  }
 }
