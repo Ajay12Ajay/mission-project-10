@@ -124,6 +124,9 @@ export class BaseCtl implements OnInit {
 
     search() {
         var _self = this;
+        
+        if (Object.values(_self.form.searchParams || {}).some(v => v != null && v !== '')) _self.form.pageNo = 0;
+
         this.serviceLocator.httpService.post(_self.api.search + "/" + _self.form.pageNo, _self.form.searchParams, function (res: any) {
             _self.form.message = '';
             _self.form.list = [];
