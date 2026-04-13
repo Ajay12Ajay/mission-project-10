@@ -57,6 +57,13 @@ public class UserDAOImpl extends BaseDAOImpl<UserDTO> implements UserDAOInt {
 			UserDTO userDto = findByPk(dto.getId(), userContext);
 			dto.setLastLogin(userDto.getLastLogin());
 		}
+		
+		   if (dto.getId() != null && dto.getId() > 0) {
+	            UserDTO userData = findByPk(dto.getId(), null);
+	            if (userData != null) {
+	                dto.setImageId(userData.getImageId());
+	            }
+		   }
 	}
 
 	/**

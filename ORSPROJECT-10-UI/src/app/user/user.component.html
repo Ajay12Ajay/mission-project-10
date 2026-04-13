@@ -86,21 +86,7 @@ i.css {
                 </tr>
                 </div>
 
-                <span class="pl-sm-5"><b>Upload Image</b></span><br>
-                <div class="col-sm-12">
-                  <div class="input-group">
-                    <div class="input-group-prepend">
-                      <div class="input-group-text"><i class="fa fa-image grey-text" style="font-size: 1rem;"></i></div>
-                    </div>
-                    <div class="custom-file">
-                      <input type="file" class="custom-file-input" name="imageId" (change)="onFileSelect($event)"
-                        accept="image/*">
-                      <label class="custom-file-label">add image</label>
-                    </div>
-                  </div>
-                </div>
-                <br>
-
+                
             <!-- First Name -->
             <span class="pl-sm-5"><b>{{ 'UserForm.FirstName' | translate }}</b> <span style="color: red;">*</span></span><br>
             <div class="col-sm-12">
@@ -249,6 +235,21 @@ i.css {
               </div>
             </div>
             <font color="red" class="pl-sm-5">{{ form.inputerror.status }}</font><br>
+
+            <span class="pl-sm-5"><b>Upload Image</b></span><br>
+                <div class="col-sm-12">
+                  <div class="input-group">
+                    <div class="input-group-prepend">
+                      <div class="input-group-text"><i class="fa fa-image grey-text" style="font-size: 1rem;"></i></div>
+                    </div>
+                    <div class="custom-file">
+                      <input type="file" class="custom-file-input" name="imageId" (change)="onFileSelect($event)"
+                        accept="image/*">
+                      <label class="custom-file-label">add image</label>
+                    </div>
+                  </div>
+                </div>
+                <br>
 
             <!-- Buttons — Update mode -->
             <div class="text-center" *ngIf="form.data.id > 0">
