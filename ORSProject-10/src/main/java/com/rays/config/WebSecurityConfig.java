@@ -1,5 +1,7 @@
 package com.rays.config;
 
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
@@ -37,7 +39,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.csrf().disable().authorizeRequests().antMatchers("/Auth/**", "/User/profilePic/**", "/Jasper/report/**").permitAll()
-				.anyRequest().authenticated().and().sessionManagement()
+				.anyRequest().authenticated().and()
+				.exceptionHandling()
+		        .authenticationEntryPoint((request, response, authException) -> {
+		            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+		            response.getWriter().write("Token does not exist....Access Denied !!!");
+		        })
+				
+				.and().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
 		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
