@@ -26,6 +26,10 @@ import { MyprofileComponent } from './user/myprofile.component';
 import { ChangepasswordComponent } from './user/changepassword.component';
 import { MarksheetmeritListComponent } from './marksheet/marksheetmerit-list.component';
 import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
+import { EmiComponent } from './emi/emi.component';
+import { EmiListComponent } from './emi/emi-list.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
+import { PrescriptionListComponent } from './prescription/prescription-list.component';
 
 const routes: Routes = [
 
@@ -177,7 +181,31 @@ const routes: Routes = [
   {
     path: 'marksheetmerit-list',
     component: MarksheetmeritListComponent
-  }
+  },
+  {
+    path: 'emi',
+    component: EmiComponent
+  },
+  {
+    path: 'emi/:id',
+    component: EmiComponent
+  },
+  {
+    path: 'emilist',
+    component: EmiListComponent
+  },
+  {
+    path: 'prescription',
+    component: PrescriptionComponent
+  },
+  {
+    path: 'prescription/:id',
+    component: PrescriptionComponent
+  },
+  {
+    path: 'prescriptionlist',
+    component: PrescriptionListComponent
+  },
 
 ];
 

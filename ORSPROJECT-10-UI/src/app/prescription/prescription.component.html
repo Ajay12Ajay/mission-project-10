@@ -1,0 +1,97 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+    padding-bottom: 175px;
+  }
+</style>
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Prescription
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Prescription
+          </h3>
+
+          <!-- Success -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Prescription ID -->
+          <span><b>Prescription ID</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.prescriptionId"
+                 name="prescriptionId"
+                 placeholder="Enter Prescription ID">
+          <small class="text-danger">{{ form.inputerror.prescriptionId }}</small>
+
+
+          <!-- Patient Name -->
+          <span><b> Patient Name</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.patientName"
+                 name="patientName"
+                 placeholder="Enter Patient Name">
+          <small class="text-danger">{{ form.inputerror.patientName }}</small>
+
+          <!-- Doctor Name -->
+          <span><b> Doctor Name</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.doctorName"
+                 name="doctorName"
+                 placeholder="Enter Doctor Name">
+          <small class="text-danger">{{ form.inputerror.doctorName }}</small>
+
+          <!-- Prescription Date -->
+            <span><b>Prescription Date</b> <span style="color: red;">*</span></span><br>
+            <div class="col-sm-12">                            
+                <input type="date" class="form-control" name="prescribedDate"
+                  [(ngModel)]="form.data.prescribedDate"
+                  [ngModel]="form.data.prescribedDate | date:'yyyy-MM-dd'"
+                  placeholder="Enter Prescription Date"
+                  style="width: 97%;">              
+            </div>
+            <small class="text-danger">{{ form.inputerror.prescribedDate }}</small>
+            
+
+          
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+            <button class="btn btn-success" (click)="submit()">Save</button>
+            &nbsp;
+            <button class="btn btn-warning"
+                    (click)="forward('prescriptionlist')">List</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<app-footer></app-footer>

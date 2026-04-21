@@ -1,0 +1,99 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+    padding-bottom: 175px;
+  }
+</style>
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add EMI
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update EMI
+          </h3>
+
+          <!-- Success -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- EMI ID -->
+          <span><b>EMI ID</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.emiId"
+                 name="emiId"
+                 placeholder="Enter EMI ID">
+          <small class="text-danger">{{ form.inputerror.emiId }}</small>
+
+
+          <!-- Amount -->
+          <span><b> Amount</b> *</span>
+          <input type="number" class="form-control mb-2"
+                 [(ngModel)]="form.data.amount"
+                 name="amount"
+                 placeholder="Enter Amount">
+          <small class="text-danger">{{ form.inputerror.amount }}</small>
+
+          <!-- DUE Date -->
+            <span><b>DUE DATE</b> <span style="color: red;">*</span></span><br>
+            <div class="col-sm-12">                            
+                <input type="date" class="form-control" name="dueDate"
+                  [(ngModel)]="form.data.dueDate"
+                  [ngModel]="form.data.dueDate | date:'yyyy-MM-dd'"
+                  placeholder="Enter DUE Date"
+                  style="width: 97%;">              
+            </div>
+            <small class="text-danger">{{ form.inputerror.dueDate }}</small>
+            
+
+          <!-- Status -->
+          <span><b>Status</b> *</span>
+          <select class="form-control mb-2"
+                  [(ngModel)]="form.data.status"
+                  name="status">
+            <option value="undefined">--Select--</option>
+            <option value="Pending">Pending</option>
+            <option value="Processing">Processing</option>
+            <option value="Delivered">Delivered</option>
+          </select>
+          <small class="text-danger">{{ form.inputerror.status }}</small>
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+            <button class="btn btn-success" (click)="submit()">Save</button>
+            &nbsp;
+            <button class="btn btn-warning"
+                    (click)="forward('emilist')">List</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<app-footer></app-footer>

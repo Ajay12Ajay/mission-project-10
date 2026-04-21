@@ -39,6 +39,10 @@ import { ChangepasswordComponent } from './user/changepassword.component';
 import { MyprofileComponent } from './user/myprofile.component';
 import { GetmarksheetComponent } from './marksheet/getmarksheet.component';
 import { MarksheetmeritListComponent } from './marksheet/marksheetmerit-list.component';
+import { EmiComponent } from './emi/emi.component';
+import { EmiListComponent } from './emi/emi-list.component';
+import { PrescriptionComponent } from './prescription/prescription.component';
+import { PrescriptionListComponent } from './prescription/prescription-list.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -76,7 +80,11 @@ export function HttpLoaderFactory(http: HttpClient) {
     ChangepasswordComponent,
     MyprofileComponent,
     GetmarksheetComponent,
-    MarksheetmeritListComponent
+    MarksheetmeritListComponent,
+    EmiComponent,
+    EmiListComponent,
+    PrescriptionComponent,
+    PrescriptionListComponent
   ],
   imports: [
     BrowserModule,
