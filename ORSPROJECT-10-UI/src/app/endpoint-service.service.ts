@@ -20,4 +20,5 @@ export class EndpointServiceService {
   public EMI = this.SERVER_URL + "/EMI";
   public PRESCRIPTION = this.SERVER_URL + "/Prescription";
   public POLICY = this.SERVER_URL + "/Policy";
+  public DATALOG = this.SERVER_URL + "/DataExportLog";
 }

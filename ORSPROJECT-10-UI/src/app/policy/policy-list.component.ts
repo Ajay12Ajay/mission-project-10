@@ -12,7 +12,7 @@ import { BaseListCtl } from '../base-list.component';
 export class PolicyListComponent extends BaseListCtl {
 
   constructor(public locator:ServiceLocatorService, route:ActivatedRoute){
-    super(locator.endpoints.Policy,locator,route);
+    super(locator.endpoints.POLICY,locator,route);
   }
 
 }

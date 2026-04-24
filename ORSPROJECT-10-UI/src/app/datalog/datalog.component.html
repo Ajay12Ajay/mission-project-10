@@ -1,0 +1,97 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+    padding-bottom: 175px;
+  }
+</style>
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add DataExportLog
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update DataExportLog
+          </h3>
+
+          <!-- Success -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Export Log Code  -->
+          <span><b>Export Log Code</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.exportLogCode"
+                 name="exportLogCode"
+                 placeholder="Enter Export Log Code">
+          <small class="text-danger">{{ form.inputerror.exportLogCode }}</small>
+
+
+          <!-- File Name -->
+          <span><b> File Name</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.fileName"
+                 name="fileName"
+                 placeholder="Enter File Name">
+          <small class="text-danger">{{ form.inputerror.fileName }}</small>
+
+          <!-- Exported By  -->
+          <span><b> Exported By</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.exportedBy"
+                 name="exportedBy"
+                 placeholder="Enter Exported By">
+          <small class="text-danger">{{ form.inputerror.exportedBy }}</small>
+
+           <!-- Status -->
+          <span><b>Status</b> *</span>
+          <select class="form-control mb-2"
+                  [(ngModel)]="form.data.status"
+                  name="status">
+            <option value="undefined">--Select--</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>            
+          </select>
+          <small class="text-danger">{{ form.inputerror.status }}</small>
+            
+
+          
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+            <button class="btn btn-success" (click)="submit()">Save</button>
+            &nbsp;
+            <button class="btn btn-warning"
+                    (click)="forward('dataloglist')">List</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<app-footer></app-footer>

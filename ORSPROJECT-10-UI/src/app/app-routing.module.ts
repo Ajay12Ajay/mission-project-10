@@ -32,6 +32,8 @@ import { PrescriptionComponent } from './prescription/prescription.component';
 import { PrescriptionListComponent } from './prescription/prescription-list.component';
 import { PolicyComponent } from './policy/policy.component';
 import { PolicyListComponent } from './policy/policy-list.component';
+import { DatalogComponent } from './datalog/datalog.component';
+import { DatalogListComponent } from './datalog/datalog-list.component';
 
 const routes: Routes = [
 
@@ -219,6 +221,18 @@ const routes: Routes = [
   {
     path: 'policylist',
     component: PolicyListComponent
+  },
+  {
+    path: 'datalog',
+    component: DatalogComponent
+  },
+  {
+    path: 'datalog/:id',
+    component: DatalogComponent
+  },
+  {
+    path: 'dataloglist',
+    component: DatalogListComponent
   },
 
 ];
