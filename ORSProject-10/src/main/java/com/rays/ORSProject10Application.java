@@ -1,23 +1,26 @@
 package com.rays;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-
-
 /**
- * Main class for Spring Boot application.
- * It bootstraps the application and configures global settings like CORS.
+ * Main class for Spring Boot application. It bootstraps the application and
+ * configures global settings like CORS.
  * 
  * @author Ajay Pratap Kerketta
  */
 @SpringBootApplication
-public class ORSProject10Application {
+public class ORSProject10Application implements CommandLineRunner {
 
-	
+	@Value("${spring.datasource.url}")
+	private String url;
 
 	/**
 	 * Main method to run the Spring Boot application.
@@ -30,9 +33,9 @@ public class ORSProject10Application {
 	}
 
 	/**
-	 * Bean configuration for handling CORS (Cross-Origin Resource Sharing).
-	 * This allows frontend applications (like Angular running on localhost:4200)
-	 * to communicate with backend APIs.
+	 * Bean configuration for handling CORS (Cross-Origin Resource Sharing). This
+	 * allows frontend applications (like Angular running on localhost:4200) to
+	 * communicate with backend APIs.
 	 * 
 	 * @return WebMvcConfigurer - Configured CORS settings
 	 */
@@ -52,15 +55,18 @@ public class ORSProject10Application {
 			 */
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**")
-						.allowedOrigins("http://localhost:4200","http://localhost:8080")
-						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
-						.allowedHeaders("*")
+				registry.addMapping("/**").allowedOrigins("http://localhost:4200", "http://localhost:8080")
+						.allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS").allowedHeaders("*")
 						.allowCredentials(true);
 			}
 		};
 
 		return w;
+	}
+
+	@Override
+	public void run(String... args) throws Exception {
+		System.out.println("DB Url" + url);
 	}
 
 }

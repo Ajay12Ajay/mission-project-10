@@ -43,6 +43,8 @@ import { EmiComponent } from './emi/emi.component';
 import { EmiListComponent } from './emi/emi-list.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { PrescriptionListComponent } from './prescription/prescription-list.component';
+import { PolicyComponent } from './policy/policy.component';
+import { PolicyListComponent } from './policy/policy-list.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -84,7 +86,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     EmiComponent,
     EmiListComponent,
     PrescriptionComponent,
-    PrescriptionListComponent
+    PrescriptionListComponent,
+    PolicyComponent,
+    PolicyListComponent
   ],
   imports: [
     BrowserModule,

@@ -30,6 +30,8 @@ import { EmiComponent } from './emi/emi.component';
 import { EmiListComponent } from './emi/emi-list.component';
 import { PrescriptionComponent } from './prescription/prescription.component';
 import { PrescriptionListComponent } from './prescription/prescription-list.component';
+import { PolicyComponent } from './policy/policy.component';
+import { PolicyListComponent } from './policy/policy-list.component';
 
 const routes: Routes = [
 
@@ -205,6 +207,18 @@ const routes: Routes = [
   {
     path: 'prescriptionlist',
     component: PrescriptionListComponent
+  },
+  {
+    path: 'policy',
+    component: PolicyComponent
+  },
+  {
+    path: 'policy/:id',
+    component: PolicyComponent
+  },
+  {
+    path: 'policylist',
+    component: PolicyListComponent
   },
 
 ];
