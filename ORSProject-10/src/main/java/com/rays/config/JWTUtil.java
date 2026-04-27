@@ -42,14 +42,12 @@ public class JWTUtil {
 	 * @throws Exception if JSON serialization or HMAC signing fails
 	 */
 	public String generateToken(Long userId, String loginId, String role) throws Exception {
+		
 		long nowMillis = System.currentTimeMillis() / 1000;
-
-		System.out.println("CURRENT TIME=================>" + nowMillis);
-		System.out.println("EXPIRATION TIME=================>" + jwtExpiration);
-
+		
 		long expMillis = nowMillis + (jwtExpiration / 1000);
 
-		System.out.println("EXPIRATION tot: TIME=================>" + expMillis);
+		
 
 		// JWT Header
 		Map<String, Object> header = new HashMap<>();

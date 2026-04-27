@@ -21,4 +21,5 @@ export class EndpointServiceService {
   public PRESCRIPTION = this.SERVER_URL + "/Prescription";
   public POLICY = this.SERVER_URL + "/Policy";
   public DATALOG = this.SERVER_URL + "/DataExportLog";
+  public ALLOW = this.SERVER_URL + "/AllowList";
 }

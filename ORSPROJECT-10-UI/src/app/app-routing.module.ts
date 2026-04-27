@@ -34,6 +34,8 @@ import { PolicyComponent } from './policy/policy.component';
 import { PolicyListComponent } from './policy/policy-list.component';
 import { DatalogComponent } from './datalog/datalog.component';
 import { DatalogListComponent } from './datalog/datalog-list.component';
+import { AllowComponent } from './allow/allow.component';
+import { AllowListComponent } from './allow/allow-list.component';
 
 const routes: Routes = [
 
@@ -233,6 +235,18 @@ const routes: Routes = [
   {
     path: 'dataloglist',
     component: DatalogListComponent
+  },
+  {
+    path: 'allow',
+    component: AllowComponent
+  },
+  {
+    path: 'allow/:id',
+    component: AllowComponent
+  },
+  {
+    path: 'allowlist',
+    component: AllowListComponent
   },
 
 ];

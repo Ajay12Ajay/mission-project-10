@@ -47,6 +47,8 @@ import { PolicyComponent } from './policy/policy.component';
 import { PolicyListComponent } from './policy/policy-list.component';
 import { DatalogComponent } from './datalog/datalog.component';
 import { DatalogListComponent } from './datalog/datalog-list.component';
+import { AllowComponent } from './allow/allow.component';
+import { AllowListComponent } from './allow/allow-list.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -92,7 +94,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     PolicyComponent,
     PolicyListComponent,
     DatalogComponent,
-    DatalogListComponent
+    DatalogListComponent,
+    AllowComponent,
+    AllowListComponent
   ],
   imports: [
     BrowserModule,

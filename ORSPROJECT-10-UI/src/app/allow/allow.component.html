@@ -1,0 +1,97 @@
+<style>
+  .hm {
+    background-image: url('assets/img/welcome.png');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    padding-top: 200px;
+    padding-bottom: 175px;
+  }
+</style>
+<app-navbar></app-navbar>
+
+<div class="hm">
+  <div class="row pt-3">
+    <div class="col-md-4"></div>
+
+    <div class="col-md-4">
+      <div class="card input-group-addon">
+        <div class="card-body">
+
+          <!-- Title -->
+          <h3 class="text-center text-primary" *ngIf="!form.data.id">
+            Add Allow
+          </h3>
+
+          <h3 class="text-center text-primary" *ngIf="form.data.id > 0">
+            Update Allow
+          </h3>
+
+          <!-- Success -->
+          <div *ngIf="!form.error && form.message"
+               class="alert alert-success text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Error -->
+          <div *ngIf="form.error && form.message"
+               class="alert alert-danger text-center">
+            {{ form.message }}
+          </div>
+
+          <!-- Allow Code  -->
+          <span><b>Allow Code</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.allowCode"
+                 name="allowCode"
+                 placeholder="Enter Allow Code">
+          <small class="text-danger">{{ form.inputerror.allowCode }}</small>
+
+
+          <!-- User Name -->
+          <span><b> User Name</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.userName"
+                 name="userName"
+                 placeholder="Enter User Name">
+          <small class="text-danger">{{ form.inputerror.userName }}</small>
+
+          <!-- Source  -->
+          <span><b> Source</b> *</span>
+          <input type="text" class="form-control mb-2"
+                 [(ngModel)]="form.data.source"
+                 name="source"
+                 placeholder="Enter Source ">
+          <small class="text-danger">{{ form.inputerror.source }}</small>
+
+           <!-- Status -->
+          <span><b>Status</b> *</span>
+          <select class="form-control mb-2"
+                  [(ngModel)]="form.data.status"
+                  name="status">
+            <option value="undefined">--Select--</option>
+            <option value="Active">Active</option>
+            <option value="Inactive">Inactive</option>            
+          </select>
+          <small class="text-danger">{{ form.inputerror.status }}</small>
+            
+
+          
+
+          <!-- Buttons -->
+          <div class="text-center mt-3">
+            <button class="btn btn-success" (click)="submit()">Save</button>
+            &nbsp;
+            <button class="btn btn-warning"
+                    (click)="forward('allowlist')">List</button>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-4"></div>
+  </div>
+</div>
+
+<app-footer></app-footer>

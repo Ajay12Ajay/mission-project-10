@@ -1,0 +1,161 @@
+<style>
+    .hm {
+        background-image: url('assets/img/welcome.png');
+        background-repeat: no-repeat;
+        background-attachment: fixed;
+        background-size: cover;
+        padding-top: 200px;
+        padding-bottom: 175px;
+    }
+</style>
+
+<app-navbar></app-navbar>
+
+<div class="hm">
+    <div class="container-fluid pb-5">
+
+        <!-- Title -->
+        <div align="center">
+            <h1 class="text-dark font-weight-bold pt-3"><u>Allow List</u></h1>
+        </div>
+
+        <!-- Success Message -->
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 alert alert-success alert-dismissible" *ngIf="!form.error && form.message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5 class="text-success text-center">{{ form.message }}</h5>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <!-- Error Message -->
+        <div class="row">
+            <div class="col-md-4"></div>
+            <div class="col-md-4 alert alert-danger alert-dismissible" *ngIf="form.error && form.message">
+                <button type="button" class="close" data-dismiss="alert">&times;</button>
+                <h5 class="text-danger text-center">{{ form.message }}</h5>
+            </div>
+            <div class="col-md-4"></div>
+        </div>
+
+        <div *ngIf="form.list.length > 0">
+
+            <!-- Search Section -->
+            <div class="row mb-3">
+                
+
+                <div class="col-sm-2">
+                    <input type="text" name="allowCode" [(ngModel)]="form.searchParams.allowCode" 
+                           placeholder="Enter allowCode"
+                           class="form-control">
+                </div>
+
+                <div class="col-sm-2">
+                     <!-- <select name="userName" [(ngModel)]="form.searchParams.userName" class="form-control">
+                        <option value="undefined">------User Name------</option>
+                        <option *ngFor="let obj of form.preload.datalist" [value]="obj.value">{{ obj.value }}</option>
+                    </select>   -->
+                </div>
+
+                <div class="col-sm-2">
+                     <input type="text" name="source" [(ngModel)]="form.searchParams.source" placeholder="Enter source"
+                        class="form-control"> 
+                </div>
+
+                <div class="col-sm-2">
+                     
+                </div>
+
+                <div class="col-sm-4">
+                    <button class="btn btn-primary btn-md mr-2" (click)="search()">Search</button>
+
+                    <button class="btn btn-dark btn-md" (click)="reset()">Reset</button>
+                </div>
+
+                
+            </div>
+
+            <!-- Table -->
+            <div class="table-responsive mb-3">
+                <table class="table table-bordered table-hover table-dark">
+                    <thead>
+                        <tr style="background-color: #8C8C8C;">
+                            <th width="8%">
+                                <input type="checkbox" [(ngModel)]="isMasterSel" (change)="checkUncheckAll($event)">
+                                Select All
+                            </th>
+                            <th class="text-center">S.No</th>
+                            <th class="text-center">Allow Code</th>
+                            <th class="text-center">User Name</th>
+                            <th class="text-center">Source  </th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center">Edit</th>
+                        </tr>
+                    </thead>
+
+                    <tbody>
+                        <tr *ngFor="let m of form.list; let i = index" align="center">
+                            <td>
+                                <input type="checkbox" #checkboxes (change)="checklistUpdate()" [id]="m.id"
+                                    [value]="isMasterSel">
+                            </td>
+
+                            <td>{{ (form.pageNo * 5) + i + 1 }}</td>
+                            <td>{{ m.allowCode }}</td>
+                            <td>{{ m.userName }}</td>
+                            <td>{{ m.source}}</td>
+                            <td>{{ m.status }}</td>
+
+                            <td>
+                                <a (click)="forward('/allow/' + m.id)" style="cursor: pointer;">
+                                    Edit
+                                </a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <!-- Buttons -->
+            <table width="100%">
+                <tr>
+                    <td>
+                        <button class="btn btn-warning btn-md" (click)="previous()" [disabled]="form.pageNo == 0">
+                            Previous
+                        </button>
+                    </td>
+
+                    <td class="text-center">
+                        <button class="btn btn-primary btn-md" (click)="forward('/allow')">
+                            New
+                        </button>
+                    </td>
+
+                    <td class="text-center">
+                        <button class="btn btn-danger btn-md" (click)="deleteMany()">
+                            Delete
+                        </button>
+                    </td>
+
+                    <td align="right">
+                        <button class="btn btn-warning btn-md" (click)="next()" [disabled]="form.nextListSize == 0">
+                            Next
+                        </button>
+                    </td>
+                </tr>
+            </table>
+
+        </div>
+
+        <!-- Empty List -->
+        <div *ngIf="form.list.length == 0" class="text-center mt-4">
+            <h3 class="text-danger">No Policy record Found</h3>
+            <br>
+            <button class="btn btn-primary" (click)="reset()">Back</button>
+        </div>
+
+    </div>
+</div>
+
+<app-footer></app-footer>

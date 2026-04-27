@@ -57,13 +57,10 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
 			throws ServletException, IOException {
 
-		final String authorizationHeader = request.getHeader("Authorization");
-
-		System.out.println("JWT Token ======>>>>> " + authorizationHeader);
+		final String authorizationHeader = request.getHeader("Authorization");		
 
 		if (authorizationHeader != null && authorizationHeader.startsWith("Bearer ")) {
-
-			System.out.println("JWT Token ======>>>>> iiiiinnnnnn");
+			
 
 			String jwtToken = authorizationHeader.substring(7);
 
@@ -89,7 +86,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 				UserDTO dto = new UserDTO();
 				dto.setLoginId(loginId);
 
-				System.out.println("request filter: " + dto.getLoginId());
+				//System.out.println("request filter: " + dto.getLoginId());
 
 				UserContext context = new UserContext(dto);
 
