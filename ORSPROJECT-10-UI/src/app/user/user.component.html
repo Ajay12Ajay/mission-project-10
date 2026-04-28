@@ -154,9 +154,9 @@ i.css {
                 </div>
                 <input type="date" class="form-control" name="dob"
                   [(ngModel)]="form.data.dob"
-                  [ngModel]="form.data.dob | date:'yyyy-MM-dd'"
-                  placeholder="{{ 'UserForm.Placeholders.DateOfBirth' | translate }}"
-                  style="width: 97%;">
+                  [ngModel]="form.data.dob | date:'yyyy-MM-dd'" [max]="maxDob" [min]="minDob"
+                  placeholder="{{ 'UserForm.Placeholders.DateOfBirth' | translate }}">
+                  
               </div>
             </div>
             <font color="red" class="pl-sm-5">{{ form.inputerror.dob }}</font><br>

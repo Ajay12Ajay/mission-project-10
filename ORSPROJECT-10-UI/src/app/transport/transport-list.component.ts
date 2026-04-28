@@ -16,4 +16,6 @@ export class TransportListComponent extends BaseListCtl {
     super(locator.endpoints.TRANSPORT, locator, route)
   }
 
+  
+
 }

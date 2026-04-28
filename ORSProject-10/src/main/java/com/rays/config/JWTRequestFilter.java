@@ -73,7 +73,7 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 				}
 
 				 if (loginId != null && SecurityContextHolder.getContext().getAuthentication() == null) {
-	                    // ✅ Build authentication directly from token claims — no DB call!
+	                    
 	                    String role = jwtUtil.extractRole(jwtToken);
 	                    UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 	                            loginId, null,
