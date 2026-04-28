@@ -49,6 +49,8 @@ import { DatalogComponent } from './datalog/datalog.component';
 import { DatalogListComponent } from './datalog/datalog-list.component';
 import { AllowComponent } from './allow/allow.component';
 import { AllowListComponent } from './allow/allow-list.component';
+import { TransportComponent } from './transport/transport.component';
+import { TransportListComponent } from './transport/transport-list.component';
 
 
 export function HttpLoaderFactory(http: HttpClient) {
@@ -96,7 +98,9 @@ export function HttpLoaderFactory(http: HttpClient) {
     DatalogComponent,
     DatalogListComponent,
     AllowComponent,
-    AllowListComponent
+    AllowListComponent,
+    TransportComponent,
+    TransportListComponent
   ],
   imports: [
     BrowserModule,

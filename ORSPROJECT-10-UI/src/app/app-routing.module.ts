@@ -36,6 +36,8 @@ import { DatalogComponent } from './datalog/datalog.component';
 import { DatalogListComponent } from './datalog/datalog-list.component';
 import { AllowComponent } from './allow/allow.component';
 import { AllowListComponent } from './allow/allow-list.component';
+import { TransportComponent } from './transport/transport.component';
+import { TransportListComponent } from './transport/transport-list.component';
 
 const routes: Routes = [
 
@@ -247,6 +249,18 @@ const routes: Routes = [
   {
     path: 'allowlist',
     component: AllowListComponent
+  },
+  {
+    path: 'transport',
+    component: TransportComponent
+  },
+  {
+    path: 'transport/:id',
+    component: TransportComponent
+  },
+  {
+    path: 'transportlist',
+    component: TransportListComponent
   },
 
 ];
