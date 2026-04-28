@@ -25,7 +25,8 @@ public class TransportCtl extends BaseCtl<TransportDTO, TransportForm, Transport
 		ORSResponse res = new ORSResponse(true);
 
 		List<DropdownList> transportList = service.search(dto, userContext);
-		res.addResult("transportList", transportList);
+		res.addResult("transportList", transportList);		
+		
 
 		return res;
 

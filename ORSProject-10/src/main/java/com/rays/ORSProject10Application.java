@@ -17,10 +17,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
  * @author Ajay Pratap Kerketta
  */
 @SpringBootApplication
-public class ORSProject10Application implements CommandLineRunner {
-
-	@Value("${spring.datasource.url}")
-	private String url;
+public class ORSProject10Application {
 
 	/**
 	 * Main method to run the Spring Boot application.
@@ -62,11 +59,6 @@ public class ORSProject10Application implements CommandLineRunner {
 		};
 
 		return w;
-	}
-
-	@Override
-	public void run(String... args) throws Exception {
-		System.out.println("DB Url" + url);
 	}
 
 }
