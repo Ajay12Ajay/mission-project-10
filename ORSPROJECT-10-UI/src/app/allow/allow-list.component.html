@@ -52,10 +52,10 @@
                 </div>
 
                 <div class="col-sm-2">
-                     <!-- <select name="userName" [(ngModel)]="form.searchParams.userName" class="form-control">
-                        <option value="undefined">------User Name------</option>
-                        <option *ngFor="let obj of form.preload.datalist" [value]="obj.value">{{ obj.value }}</option>
-                    </select>   -->
+                     <select name="userName" [(ngModel)]="form.searchParams.userName" class="form-control">
+                        <option value="undefined">---User Name---</option>
+                        <option *ngFor="let obj of form.preload.allowList" [value]="obj.key">{{ obj.value }}</option>
+                    </select>   
                 </div>
 
                 <div class="col-sm-2">
